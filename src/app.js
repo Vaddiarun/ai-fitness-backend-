@@ -113,7 +113,13 @@ export function createApp(db, { sendMail = defaultSendMail } = {}) {
   /* ---------- public ---------- */
   app.get(['/', '/api', '/api/index'], (_req, res) => res.json({ name: 'ai-fitness-backend', status: 'ok', api: '/api' }));
   app.get('/health', (_req, res) => res.json({ ok: true }));
-  app.get('/api/health', (_req, res) => res.json({ ok: true }));
+  // Deployment check: which host/service is answering and which settings it can see (yes/no only, never values).
+  app.get('/api/health', (_req, res) => res.json({
+    ok: true,
+    host: process.env.RENDER ? 'render' : process.env.VERCEL ? 'vercel' : 'other',
+    service: process.env.RENDER_SERVICE_NAME ?? null,
+    configured: { ADMIN_EMAIL: !!config.adminEmail, ADMIN_PASSWORD: !!config.adminPassword, JWT_SECRET: !!process.env.JWT_SECRET },
+  }));
 
   app.post('/api/auth/register', validate(S.registerSchema), (req, res) => {
     const { name, email, password } = req.body;
