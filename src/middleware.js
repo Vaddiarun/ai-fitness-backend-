@@ -66,6 +66,8 @@ export function errorHandler(err, _req, res, _next) {
   }
   if (err?.type === 'entity.parse.failed') return res.status(400).json({ error: 'Request body is not valid JSON.' });
   const status = err.status || 500;
-  if (status >= 500) console.error(err);
-  res.status(status).json({ error: status >= 500 ? 'Something went wrong on our side. Try again.' : err.message });
+  // Errors we raise on purpose (HttpError) carry a message meant for the client, even 5xx ones like "not set up".
+  const expected = err instanceof HttpError;
+  if (!expected) console.error(err);
+  res.status(status).json({ error: expected ? err.message : 'Something went wrong on our side. Try again.' });
 }
