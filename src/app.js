@@ -78,6 +78,8 @@ export function createApp(db) {
   const savePlan = (id, plan) => q.upsertPlan.run(id, JSON.stringify(plan));
 
   /* ---------- public ---------- */
+  app.get('/', (_req, res) => res.json({ name: 'ai-fitness-backend', status: 'ok', api: '/api' }));
+  app.get('/health', (_req, res) => res.json({ ok: true }));
   app.get('/api/health', (_req, res) => res.json({ ok: true }));
 
   app.post('/api/auth/register', validate(S.registerSchema), (req, res) => {

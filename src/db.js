@@ -57,9 +57,24 @@ CREATE TABLE IF NOT EXISTS water_logs (
 `;
 
 export function openDb(file) {
-  if (file !== ':memory:') mkdirSync(dirname(file), { recursive: true });
-  const db = new DatabaseSync(file);
-  db.exec('PRAGMA journal_mode = WAL; PRAGMA foreign_keys = ON;');
+  let resolvedFile = file;
+  if (resolvedFile !== ':memory:') {
+    try {
+      mkdirSync(dirname(resolvedFile), { recursive: true });
+    } catch (err) {
+      console.warn(`Could not create directory for ${resolvedFile}, falling back to /tmp/ai-fitness.db:`, err.message);
+      resolvedFile = '/tmp/ai-fitness.db';
+      try {
+        mkdirSync(dirname(resolvedFile), { recursive: true });
+      } catch {}
+    }
+  }
+  const db = new DatabaseSync(resolvedFile);
+  try {
+    db.exec('PRAGMA journal_mode = WAL; PRAGMA foreign_keys = ON;');
+  } catch {
+    db.exec('PRAGMA foreign_keys = ON;');
+  }
   db.exec(SCHEMA);
   return db;
 }
