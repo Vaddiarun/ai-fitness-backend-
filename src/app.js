@@ -352,7 +352,8 @@ export function createApp(db, { sendMail = defaultSendMail } = {}) {
 
   /* ---------- admin portal ---------- */
   app.post('/api/admin/login', validate(S.adminLoginSchema), (req, res) => {
-    if (!config.adminEmail || !config.adminPassword) throw new HttpError(503, 'The admin portal is not set up. Set ADMIN_EMAIL and ADMIN_PASSWORD on the server.');
+    const missing = [!config.adminEmail && 'ADMIN_EMAIL', !config.adminPassword && 'ADMIN_PASSWORD'].filter(Boolean);
+    if (missing.length) throw new HttpError(503, `The admin portal is not set up: ${missing.join(' and ')} ${missing.length > 1 ? 'are' : 'is'} missing on the server.`);
     const ok = req.body.email === config.adminEmail && sameSecret(req.body.password, config.adminPassword);
     if (!ok) throw new HttpError(401, 'Email or password is incorrect.');
     res.json({ token: signAdminToken(config.adminEmail), email: config.adminEmail });
