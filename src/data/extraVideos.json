@@ -1,0 +1,26 @@
+{
+ "warmup": {
+  "title": "Warm-up",
+  "youtubeId": "cmple9fw65w",
+  "length": "5:39",
+  "channel": "Oliver Sjostrom"
+ },
+ "cooldown": {
+  "title": "Cool-down stretch",
+  "youtubeId": "R56k41NLIoI",
+  "length": "5:22",
+  "channel": "Studio Jibby"
+ },
+ "stretch": {
+  "title": "Full-body stretching",
+  "youtubeId": "aZ1PzhThqcU",
+  "length": "20:35",
+  "channel": "YOGABODY"
+ },
+ "walk": {
+  "title": "Indoor walking workout",
+  "youtubeId": "icSm9cLTSDw",
+  "length": "16:31",
+  "channel": "fabulous50s"
+ }
+}

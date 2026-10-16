@@ -1,0 +1,861 @@
+{
+ "pushup": {
+  "id": "pushup",
+  "name": "Push-up",
+  "muscles": "Chest, shoulders, triceps",
+  "equipment": "none",
+  "timed": false,
+  "steps": [
+   "Hands slightly wider than shoulders, body straight from head to heels.",
+   "Lower your chest until it is a fist-width from the floor, elbows about 45° from your body.",
+   "Push the floor away to return to the top. Keep your stomach tight the whole time."
+  ],
+  "tip": "Too hard? Put your hands on a bed or table, or drop to your knees.",
+  "video": {
+   "youtubeId": "I9fsqKE5XHo",
+   "length": "6:51",
+   "channel": "Upright Health"
+  },
+  "libraryId": "pushups",
+  "images": [
+   "https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/exercises/Pushups/0.jpg",
+   "https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/exercises/Pushups/1.jpg"
+  ]
+ },
+ "inclinepush": {
+  "id": "inclinepush",
+  "name": "Incline push-up",
+  "muscles": "Chest, triceps",
+  "equipment": "none",
+  "timed": false,
+  "steps": [
+   "Put your hands on a sturdy table, bed edge or wall.",
+   "Walk your feet back until your body is in a straight line.",
+   "Lower your chest to the edge, then press back up."
+  ],
+  "tip": "The lower the surface, the harder it gets.",
+  "video": {
+   "youtubeId": "cfns5VDVVvk",
+   "length": "2:13",
+   "channel": "Train With Adby"
+  },
+  "libraryId": "incline-push-up",
+  "images": [
+   "https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/exercises/Incline_Push-Up/0.jpg",
+   "https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/exercises/Incline_Push-Up/1.jpg"
+  ]
+ },
+ "dbbench": {
+  "id": "dbbench",
+  "name": "Dumbbell bench press",
+  "muscles": "Chest, triceps",
+  "equipment": "db",
+  "timed": false,
+  "steps": [
+   "Lie on a bench or the floor with a dumbbell in each hand above your chest.",
+   "Lower the weights slowly to the sides of your chest.",
+   "Press up until your arms are straight, without banging the dumbbells together."
+  ],
+  "tip": "On the floor, pause when your elbows touch down.",
+  "video": {
+   "youtubeId": "O7ECGhZj_Hc",
+   "length": "0:34",
+   "channel": "Jay Gardner"
+  },
+  "libraryId": "dumbbell-bench-press",
+  "images": [
+   "https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/exercises/Dumbbell_Bench_Press/0.jpg",
+   "https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/exercises/Dumbbell_Bench_Press/1.jpg"
+  ]
+ },
+ "bench": {
+  "id": "bench",
+  "name": "Barbell bench press",
+  "muscles": "Chest, triceps, shoulders",
+  "equipment": "gym",
+  "timed": false,
+  "steps": [
+   "Lie with eyes under the bar, feet flat, shoulder blades squeezed together.",
+   "Unrack and lower the bar to mid-chest with control.",
+   "Press up and slightly back until your arms lock out."
+  ],
+  "tip": "Always use a spotter or safety pins when going heavy.",
+  "video": {
+   "youtubeId": "lWFknlOTbyM",
+   "length": "2:00",
+   "channel": "Max Euceda"
+  },
+  "libraryId": "barbell-bench-press-medium-grip",
+  "images": [
+   "https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/exercises/Barbell_Bench_Press_-_Medium_Grip/0.jpg",
+   "https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/exercises/Barbell_Bench_Press_-_Medium_Grip/1.jpg"
+  ]
+ },
+ "machinepress": {
+  "id": "machinepress",
+  "name": "Machine chest press",
+  "muscles": "Chest, triceps",
+  "equipment": "gym",
+  "timed": false,
+  "steps": [
+   "Set the seat so handles are at mid-chest height.",
+   "Press forward until arms are almost straight.",
+   "Return slowly until you feel a stretch in your chest."
+  ],
+  "tip": "A good first chest exercise for beginners in a gym.",
+  "video": {
+   "youtubeId": "VesHgJR14E8",
+   "length": "2:10",
+   "channel": "Max Euceda"
+  },
+  "libraryId": "machine-bench-press",
+  "images": [
+   "https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/exercises/Machine_Bench_Press/0.jpg",
+   "https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/exercises/Machine_Bench_Press/1.jpg"
+  ]
+ },
+ "pike": {
+  "id": "pike",
+  "name": "Pike push-up",
+  "muscles": "Shoulders, triceps",
+  "equipment": "none",
+  "timed": false,
+  "steps": [
+   "Start in a push-up, then walk your feet in so your hips point up like an upside-down V.",
+   "Bend your elbows and lower the top of your head toward the floor.",
+   "Press back up to the V position."
+  ],
+  "tip": "Feet on a step makes it harder.",
+  "video": {
+   "youtubeId": "lIZ_C4VJnmc",
+   "length": "4:32",
+   "channel": "Chris Calisthenics"
+  },
+  "libraryId": "coached-pike",
+  "images": []
+ },
+ "dbpress": {
+  "id": "dbpress",
+  "name": "Dumbbell shoulder press",
+  "muscles": "Shoulders, triceps",
+  "equipment": "db",
+  "timed": false,
+  "steps": [
+   "Sit or stand tall with dumbbells at shoulder height, palms forward.",
+   "Press the weights overhead until your arms are straight.",
+   "Lower back to shoulder height with control."
+  ],
+  "tip": "Do not arch your lower back. Squeeze your glutes.",
+  "video": {
+   "youtubeId": "rO_iEImwHyo",
+   "length": "2:00",
+   "channel": "Max Euceda"
+  },
+  "libraryId": "dumbbell-shoulder-press",
+  "images": [
+   "https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/exercises/Dumbbell_Shoulder_Press/0.jpg",
+   "https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/exercises/Dumbbell_Shoulder_Press/1.jpg"
+  ]
+ },
+ "lateral": {
+  "id": "lateral",
+  "name": "Lateral raise",
+  "muscles": "Side of shoulders",
+  "equipment": "db",
+  "timed": false,
+  "steps": [
+   "Stand holding light dumbbells at your sides.",
+   "With a slight bend in your elbows, raise your arms out to the sides up to shoulder height.",
+   "Lower slowly over 2–3 seconds."
+  ],
+  "tip": "Use a light weight. No swinging.",
+  "video": {
+   "youtubeId": "K5hFLVJnnsw",
+   "length": "5:52",
+   "channel": "Sean Nalewanyj"
+  },
+  "libraryId": "side-lateral-raise",
+  "images": [
+   "https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/exercises/Side_Lateral_Raise/0.jpg",
+   "https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/exercises/Side_Lateral_Raise/1.jpg"
+  ]
+ },
+ "dips": {
+  "id": "dips",
+  "name": "Chair dips",
+  "muscles": "Triceps",
+  "equipment": "none",
+  "timed": false,
+  "steps": [
+   "Sit on the edge of a stable chair, hands next to your hips.",
+   "Slide your hips off the chair and bend your elbows to about 90°.",
+   "Push back up until your arms are straight."
+  ],
+  "tip": "Bend your knees to make it easier.",
+  "video": {
+   "youtubeId": "AWz_7B1cch0",
+   "length": "5:27",
+   "channel": "Coach Nick Fitness"
+  },
+  "libraryId": "bench-dips",
+  "images": [
+   "https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/exercises/Bench_Dips/0.jpg",
+   "https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/exercises/Bench_Dips/1.jpg"
+  ]
+ },
+ "ohext": {
+  "id": "ohext",
+  "name": "Overhead triceps extension",
+  "muscles": "Triceps",
+  "equipment": "db",
+  "timed": false,
+  "steps": [
+   "Hold one dumbbell with both hands overhead.",
+   "Bend your elbows to lower it behind your head.",
+   "Straighten your arms to lift it back up. Keep elbows pointing forward."
+  ],
+  "tip": "Keep your ribs down; do not lean back.",
+  "video": {
+   "youtubeId": "-Vyt2QdsR7E",
+   "length": "1:43",
+   "channel": "ScottHermanFitness"
+  },
+  "libraryId": "dumbbell-one-arm-triceps-extension",
+  "images": [
+   "https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/exercises/Dumbbell_One-Arm_Triceps_Extension/0.jpg",
+   "https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/exercises/Dumbbell_One-Arm_Triceps_Extension/1.jpg"
+  ]
+ },
+ "pushdown": {
+  "id": "pushdown",
+  "name": "Cable triceps pushdown",
+  "muscles": "Triceps",
+  "equipment": "gym",
+  "timed": false,
+  "steps": [
+   "Hold the rope or bar at chest height, elbows tucked at your sides.",
+   "Push down until your arms are straight.",
+   "Let it rise back to chest height slowly."
+  ],
+  "tip": "Only your forearms move.",
+  "video": {
+   "youtubeId": "-zLyUAo1gMw",
+   "length": "2:00",
+   "channel": "Max Euceda"
+  },
+  "libraryId": "triceps-pushdown",
+  "images": [
+   "https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/exercises/Triceps_Pushdown/0.jpg",
+   "https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/exercises/Triceps_Pushdown/1.jpg"
+  ]
+ },
+ "tablerow": {
+  "id": "tablerow",
+  "name": "Table row",
+  "muscles": "Back, biceps",
+  "equipment": "none",
+  "timed": false,
+  "steps": [
+   "Lie under a sturdy table and grab its edge with both hands.",
+   "Keeping your body straight, pull your chest up toward the table.",
+   "Lower yourself slowly."
+  ],
+  "tip": "Bend your knees to make it easier. Test the table first.",
+  "video": {
+   "youtubeId": "FKKZRwBJDxE",
+   "length": "0:47",
+   "channel": "Andrew Heming"
+  },
+  "libraryId": "inverted-row",
+  "images": [
+   "https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/exercises/Inverted_Row/0.jpg",
+   "https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/exercises/Inverted_Row/1.jpg"
+  ]
+ },
+ "superman": {
+  "id": "superman",
+  "name": "Superman hold",
+  "muscles": "Lower back, glutes",
+  "equipment": "none",
+  "timed": true,
+  "steps": [
+   "Lie face down with arms stretched forward.",
+   "Lift arms, chest and legs a few centimetres off the floor.",
+   "Hold, breathing normally."
+  ],
+  "tip": "Look at the floor to keep your neck relaxed.",
+  "video": {
+   "youtubeId": "J9zXkxUAfUA",
+   "length": "1:03",
+   "channel": "Children's Hospital Colorado"
+  },
+  "libraryId": "superman",
+  "images": [
+   "https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/exercises/Superman/0.jpg",
+   "https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/exercises/Superman/1.jpg"
+  ]
+ },
+ "dbrow": {
+  "id": "dbrow",
+  "name": "One-arm dumbbell row",
+  "muscles": "Back, biceps",
+  "equipment": "db",
+  "timed": false,
+  "steps": [
+   "Put one hand and knee on a bench or chair, the other foot on the floor.",
+   "Pull the dumbbell up toward your hip.",
+   "Lower it until your arm is straight. Do all reps, then switch sides."
+  ],
+  "tip": "Think about pulling with your elbow, not your hand.",
+  "video": {
+   "youtubeId": "dFzUjzfih7k",
+   "length": "2:00",
+   "channel": "Max Euceda"
+  },
+  "libraryId": "one-arm-dumbbell-row",
+  "images": [
+   "https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/exercises/One-Arm_Dumbbell_Row/0.jpg",
+   "https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/exercises/One-Arm_Dumbbell_Row/1.jpg"
+  ]
+ },
+ "bentrow": {
+  "id": "bentrow",
+  "name": "Bent-over dumbbell row",
+  "muscles": "Upper back",
+  "equipment": "db",
+  "timed": false,
+  "steps": [
+   "Hold dumbbells, hinge forward at the hips with a flat back.",
+   "Pull both weights to your lower ribs, squeezing your shoulder blades.",
+   "Lower with control."
+  ],
+  "tip": "Keep your back flat, not rounded.",
+  "video": {
+   "youtubeId": "dFzUjzfih7k",
+   "length": "2:00",
+   "channel": "Max Euceda"
+  },
+  "libraryId": "bent-over-two-dumbbell-row",
+  "images": [
+   "https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/exercises/Bent_Over_Two-Dumbbell_Row/0.jpg",
+   "https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/exercises/Bent_Over_Two-Dumbbell_Row/1.jpg"
+  ]
+ },
+ "pulldown": {
+  "id": "pulldown",
+  "name": "Lat pulldown",
+  "muscles": "Back, biceps",
+  "equipment": "gym",
+  "timed": false,
+  "steps": [
+   "Sit with thighs under the pad, hands a little wider than shoulders.",
+   "Pull the bar down to your upper chest, leaning back slightly.",
+   "Let it rise until your arms are straight."
+  ],
+  "tip": "Do not pull the bar behind your neck.",
+  "video": {
+   "youtubeId": "SALxEARiMkw",
+   "length": "5:55",
+   "channel": "ATHLEAN-X"
+  },
+  "libraryId": "wide-grip-lat-pulldown",
+  "images": [
+   "https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/exercises/Wide-Grip_Lat_Pulldown/0.jpg",
+   "https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/exercises/Wide-Grip_Lat_Pulldown/1.jpg"
+  ]
+ },
+ "cablerow": {
+  "id": "cablerow",
+  "name": "Seated cable row",
+  "muscles": "Mid back",
+  "equipment": "gym",
+  "timed": false,
+  "steps": [
+   "Sit tall with feet on the platform and a slight knee bend.",
+   "Pull the handle to your stomach, squeezing your shoulder blades together.",
+   "Return slowly until your arms are straight."
+  ],
+  "tip": "Keep your chest up; do not rock.",
+  "video": {
+   "youtubeId": "vwHG9Jfu4sw",
+   "length": "2:00",
+   "channel": "Max Euceda"
+  },
+  "libraryId": "seated-cable-rows",
+  "images": [
+   "https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/exercises/Seated_Cable_Rows/0.jpg",
+   "https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/exercises/Seated_Cable_Rows/1.jpg"
+  ]
+ },
+ "facepull": {
+  "id": "facepull",
+  "name": "Face pull",
+  "muscles": "Rear shoulders, upper back",
+  "equipment": "gym",
+  "timed": false,
+  "steps": [
+   "Set a rope at face height.",
+   "Pull the rope toward your face, elbows high, hands ending beside your ears.",
+   "Return slowly."
+  ],
+  "tip": "Great for posture if you sit all day.",
+  "video": {
+   "youtubeId": "ljgqer1ZpXg",
+   "length": "6:22",
+   "channel": "ATHLEAN-X"
+  },
+  "libraryId": "face-pull",
+  "images": [
+   "https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/exercises/Face_Pull/0.jpg",
+   "https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/exercises/Face_Pull/1.jpg"
+  ]
+ },
+ "revfly": {
+  "id": "revfly",
+  "name": "Reverse fly",
+  "muscles": "Rear shoulders",
+  "equipment": "db",
+  "timed": false,
+  "steps": [
+   "Hinge forward with light dumbbells hanging below your chest.",
+   "Raise your arms out to the sides, squeezing your shoulder blades.",
+   "Lower slowly."
+  ],
+  "tip": "Very light weight is enough.",
+  "video": {
+   "youtubeId": "d1QEddtoOq0",
+   "length": "3:06",
+   "channel": "Colossus Fitness"
+  },
+  "libraryId": "reverse-flyes",
+  "images": [
+   "https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/exercises/Reverse_Flyes/0.jpg",
+   "https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/exercises/Reverse_Flyes/1.jpg"
+  ]
+ },
+ "curl": {
+  "id": "curl",
+  "name": "Dumbbell biceps curl",
+  "muscles": "Biceps",
+  "equipment": "db",
+  "timed": false,
+  "steps": [
+   "Stand with dumbbells at your sides, palms forward.",
+   "Curl the weights toward your shoulders, elbows fixed at your sides.",
+   "Lower slowly until your arms are straight."
+  ],
+  "tip": "No swinging your body.",
+  "video": {
+   "youtubeId": "XE_pHwbst04",
+   "length": "2:39",
+   "channel": "Fit Father Project"
+  },
+  "libraryId": "dumbbell-bicep-curl",
+  "images": [
+   "https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/exercises/Dumbbell_Bicep_Curl/0.jpg",
+   "https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/exercises/Dumbbell_Bicep_Curl/1.jpg"
+  ]
+ },
+ "towelcurl": {
+  "id": "towelcurl",
+  "name": "Towel curl",
+  "muscles": "Biceps",
+  "equipment": "none",
+  "timed": false,
+  "steps": [
+   "Sit on a chair and loop a towel under one foot, holding both ends.",
+   "Curl your hands up while pushing down gently with your foot for resistance.",
+   "Lower slowly, keeping the tension on."
+  ],
+  "tip": "Your foot controls how hard it is.",
+  "video": {
+   "youtubeId": "astPQqDb1s4",
+   "length": "1:04",
+   "channel": "J2FIT"
+  },
+  "libraryId": "coached-towelcurl",
+  "images": []
+ },
+ "sqbw": {
+  "id": "sqbw",
+  "name": "Bodyweight squat",
+  "muscles": "Thighs, glutes",
+  "equipment": "none",
+  "timed": false,
+  "steps": [
+   "Stand with feet shoulder-width apart, toes slightly out.",
+   "Push your hips back and bend your knees as if sitting on a chair.",
+   "Go as low as is comfortable, then stand up by pushing through your whole foot."
+  ],
+  "tip": "Knees follow your toes. Squat to a chair if you need to.",
+  "video": {
+   "youtubeId": "Ul2idJKmpAc",
+   "length": "1:05",
+   "channel": "FITTR"
+  },
+  "libraryId": "bodyweight-squat",
+  "images": [
+   "https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/exercises/Bodyweight_Squat/0.jpg",
+   "https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/exercises/Bodyweight_Squat/1.jpg"
+  ]
+ },
+ "goblet": {
+  "id": "goblet",
+  "name": "Goblet squat",
+  "muscles": "Thighs, glutes",
+  "equipment": "db",
+  "timed": false,
+  "steps": [
+   "Hold one dumbbell vertically at your chest.",
+   "Squat down between your knees, keeping your chest up.",
+   "Stand back up, squeezing your glutes at the top."
+  ],
+  "tip": "Elbows brush the inside of your knees at the bottom.",
+  "video": {
+   "youtubeId": "gCESNsDsbqk",
+   "length": "1:06",
+   "channel": "BuiltLean"
+  },
+  "libraryId": "goblet-squat",
+  "images": [
+   "https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/exercises/Goblet_Squat/0.jpg",
+   "https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/exercises/Goblet_Squat/1.jpg"
+  ]
+ },
+ "backsquat": {
+  "id": "backsquat",
+  "name": "Barbell back squat",
+  "muscles": "Thighs, glutes, core",
+  "equipment": "gym",
+  "timed": false,
+  "steps": [
+   "Bar rests on your upper back, feet shoulder-width.",
+   "Take a big breath, brace your stomach and squat until thighs are about parallel.",
+   "Drive up, keeping your chest up."
+  ],
+  "tip": "Use the squat rack safety bars.",
+  "video": {
+   "youtubeId": "aOzrA4FgnM0",
+   "length": "2:01",
+   "channel": "Max Euceda"
+  },
+  "libraryId": "barbell-squat",
+  "images": [
+   "https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/exercises/Barbell_Squat/0.jpg",
+   "https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/exercises/Barbell_Squat/1.jpg"
+  ]
+ },
+ "legpress": {
+  "id": "legpress",
+  "name": "Leg press",
+  "muscles": "Thighs, glutes",
+  "equipment": "gym",
+  "timed": false,
+  "steps": [
+   "Sit with feet shoulder-width on the platform.",
+   "Release the safeties and lower until knees are near 90°.",
+   "Press back up without locking your knees."
+  ],
+  "tip": "Keep your lower back on the pad.",
+  "video": {
+   "youtubeId": "K5n2vg3oZa4",
+   "length": "3:48",
+   "channel": "Colossus Fitness"
+  },
+  "libraryId": "leg-press",
+  "images": [
+   "https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/exercises/Leg_Press/0.jpg",
+   "https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/exercises/Leg_Press/1.jpg"
+  ]
+ },
+ "lunge": {
+  "id": "lunge",
+  "name": "Reverse lunge",
+  "muscles": "Thighs, glutes",
+  "equipment": "none",
+  "timed": false,
+  "steps": [
+   "Stand tall, then step one foot back.",
+   "Lower until both knees are bent about 90°.",
+   "Push through your front foot to come back. Alternate legs."
+  ],
+  "tip": "Hold a wall for balance at first.",
+  "video": {
+   "youtubeId": "Ry-wqegeKlE",
+   "length": "0:59",
+   "channel": "Dr. Carl Baird"
+  },
+  "libraryId": "bodyweight-walking-lunge",
+  "images": [
+   "https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/exercises/Bodyweight_Walking_Lunge/0.jpg",
+   "https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/exercises/Bodyweight_Walking_Lunge/1.jpg"
+  ]
+ },
+ "dblunge": {
+  "id": "dblunge",
+  "name": "Dumbbell reverse lunge",
+  "muscles": "Thighs, glutes",
+  "equipment": "db",
+  "timed": false,
+  "steps": [
+   "Hold dumbbells at your sides.",
+   "Step back and lower until both knees are about 90°.",
+   "Drive through your front heel to stand. Alternate legs."
+  ],
+  "tip": "Short, controlled steps.",
+  "video": {
+   "youtubeId": "RZKXLMxPF_I",
+   "length": "1:07",
+   "channel": "FITTR"
+  },
+  "libraryId": "dumbbell-rear-lunge",
+  "images": [
+   "https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/exercises/Dumbbell_Rear_Lunge/0.jpg",
+   "https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/exercises/Dumbbell_Rear_Lunge/1.jpg"
+  ]
+ },
+ "rdl": {
+  "id": "rdl",
+  "name": "Dumbbell Romanian deadlift",
+  "muscles": "Hamstrings, glutes",
+  "equipment": "db",
+  "timed": false,
+  "steps": [
+   "Stand holding dumbbells in front of your thighs, knees slightly bent.",
+   "Push your hips back and slide the weights down your legs, back flat.",
+   "Stop when you feel a stretch in your hamstrings, then stand up by pushing your hips forward."
+  ],
+  "tip": "Your back must stay flat. Range ends where flatness ends.",
+  "video": {
+   "youtubeId": "hQgFixeXdZo",
+   "length": "1:19",
+   "channel": "J2FIT"
+  },
+  "libraryId": "stiff-legged-dumbbell-deadlift",
+  "images": [
+   "https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/exercises/Stiff-Legged_Dumbbell_Deadlift/0.jpg",
+   "https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/exercises/Stiff-Legged_Dumbbell_Deadlift/1.jpg"
+  ]
+ },
+ "glutebridge": {
+  "id": "glutebridge",
+  "name": "Glute bridge",
+  "muscles": "Glutes, hamstrings",
+  "equipment": "none",
+  "timed": false,
+  "steps": [
+   "Lie on your back, knees bent, feet flat near your hips.",
+   "Push through your heels and lift your hips until your body is straight from knees to shoulders.",
+   "Squeeze your glutes for one second, then lower."
+  ],
+  "tip": "Place a dumbbell on your hips to make it harder.",
+  "video": {
+   "youtubeId": "XLXGydU5DdU",
+   "length": "0:45",
+   "channel": "Bupa Health"
+  },
+  "libraryId": "butt-lift-bridge",
+  "images": [
+   "https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/exercises/Butt_Lift_Bridge/0.jpg",
+   "https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/exercises/Butt_Lift_Bridge/1.jpg"
+  ]
+ },
+ "stepup": {
+  "id": "stepup",
+  "name": "Step-up",
+  "muscles": "Thighs, glutes",
+  "equipment": "none",
+  "timed": false,
+  "steps": [
+   "Stand facing a sturdy step or low bench.",
+   "Step up with one foot and stand fully on it.",
+   "Step down with control. Do all reps, then switch legs."
+  ],
+  "tip": "Push through the top foot, not the bottom one.",
+  "video": {
+   "youtubeId": "WCFCdxzFBa4",
+   "length": "2:52",
+   "channel": "Get Exercise Confident"
+  },
+  "libraryId": "dumbbell-step-ups",
+  "images": [
+   "https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/exercises/Dumbbell_Step_Ups/0.jpg",
+   "https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/exercises/Dumbbell_Step_Ups/1.jpg"
+  ]
+ },
+ "calf": {
+  "id": "calf",
+  "name": "Standing calf raise",
+  "muscles": "Calves",
+  "equipment": "none",
+  "timed": false,
+  "steps": [
+   "Stand on the edge of a step, heels hanging off.",
+   "Rise up onto your toes as high as you can.",
+   "Lower your heels below the step slowly."
+  ],
+  "tip": "Hold a wall for balance.",
+  "video": {
+   "youtubeId": "k8ipHzKeAkQ",
+   "length": "1:02",
+   "channel": "Children's Hospital Colorado"
+  },
+  "libraryId": "standing-calf-raises",
+  "images": [
+   "https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/exercises/Standing_Calf_Raises/0.jpg",
+   "https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/exercises/Standing_Calf_Raises/1.jpg"
+  ]
+ },
+ "wallsit": {
+  "id": "wallsit",
+  "name": "Wall sit",
+  "muscles": "Thighs",
+  "equipment": "none",
+  "timed": true,
+  "steps": [
+   "Lean your back against a wall.",
+   "Slide down until your knees are bent (aim for 90°).",
+   "Hold, breathing steadily."
+  ],
+  "tip": "Go only as low as is pain-free.",
+  "video": {
+   "youtubeId": "eb7vLD6V-iU",
+   "length": "0:34",
+   "channel": "Chelmsford Physio"
+  },
+  "libraryId": "coached-wallsit",
+  "images": []
+ },
+ "plank": {
+  "id": "plank",
+  "name": "Plank",
+  "muscles": "Core",
+  "equipment": "none",
+  "timed": true,
+  "steps": [
+   "Forearms on the floor, elbows under shoulders.",
+   "Lift your body so it is straight from head to heels.",
+   "Hold, squeezing your stomach and glutes."
+  ],
+  "tip": "Do not let your hips sag or pike up.",
+  "video": {
+   "youtubeId": "6LqqeBtFn9M",
+   "length": "2:45",
+   "channel": "Get Exercise Confident"
+  },
+  "libraryId": "plank",
+  "images": [
+   "https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/exercises/Plank/0.jpg",
+   "https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/exercises/Plank/1.jpg"
+  ]
+ },
+ "deadbug": {
+  "id": "deadbug",
+  "name": "Dead bug",
+  "muscles": "Core",
+  "equipment": "none",
+  "timed": false,
+  "steps": [
+   "Lie on your back, arms up, knees bent at 90° above your hips.",
+   "Slowly lower the opposite arm and leg toward the floor.",
+   "Return and switch sides. Keep your lower back pressed down."
+  ],
+  "tip": "Slow is better here.",
+  "video": {
+   "youtubeId": "o4GKiEoYClI",
+   "length": "0:21",
+   "channel": "Pursuit Physical Therapy"
+  },
+  "libraryId": "dead-bug",
+  "images": [
+   "https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/exercises/Dead_Bug/0.jpg",
+   "https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/exercises/Dead_Bug/1.jpg"
+  ]
+ },
+ "bicycle": {
+  "id": "bicycle",
+  "name": "Bicycle crunch",
+  "muscles": "Core, obliques",
+  "equipment": "none",
+  "timed": false,
+  "steps": [
+   "Lie on your back, hands lightly behind your head.",
+   "Bring one knee in while rotating the opposite elbow toward it.",
+   "Switch sides in a slow pedalling motion."
+  ],
+  "tip": "Do not pull on your neck.",
+  "video": {
+   "youtubeId": "eqg47ZuGZXQ",
+   "length": "0:59",
+   "channel": "UCLA Health"
+  },
+  "libraryId": "air-bike",
+  "images": [
+   "https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/exercises/Air_Bike/0.jpg",
+   "https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/exercises/Air_Bike/1.jpg"
+  ]
+ },
+ "mountain": {
+  "id": "mountain",
+  "name": "Mountain climbers",
+  "muscles": "Core, cardio",
+  "equipment": "none",
+  "timed": true,
+  "steps": [
+   "Start in a high plank.",
+   "Drive one knee toward your chest, then switch quickly.",
+   "Keep your hips low and level."
+  ],
+  "tip": "Slow it down if your form slips.",
+  "video": {
+   "youtubeId": "ZhiCSdOVJp0",
+   "length": "2:39",
+   "channel": "Fit Father Project"
+  },
+  "libraryId": "mountain-climbers",
+  "images": [
+   "https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/exercises/Mountain_Climbers/0.jpg",
+   "https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/exercises/Mountain_Climbers/1.jpg"
+  ]
+ },
+ "highknees": {
+  "id": "highknees",
+  "name": "High knees",
+  "muscles": "Cardio",
+  "equipment": "none",
+  "timed": true,
+  "steps": [
+   "Stand tall and run on the spot.",
+   "Lift your knees to hip height.",
+   "Pump your arms and stay light on your feet."
+  ],
+  "tip": "Low-impact option: march fast instead.",
+  "video": {
+   "youtubeId": "ymdS7tM0zws",
+   "length": "0:30",
+   "channel": "Josh Wilson"
+  },
+  "libraryId": "coached-highknees",
+  "images": []
+ },
+ "march": {
+  "id": "march",
+  "name": "Fast march on the spot",
+  "muscles": "Cardio (low impact)",
+  "equipment": "none",
+  "timed": true,
+  "steps": [
+   "Stand tall and march on the spot.",
+   "Lift your knees high and swing your arms.",
+   "Keep a pace where talking is hard but possible."
+  ],
+  "tip": "Kind to knees and joints.",
+  "video": {
+   "youtubeId": "u1gmWFvEluM",
+   "length": "1:39",
+   "channel": "Margaret Martin, PT"
+  },
+  "libraryId": "coached-march",
+  "images": []
+ }
+}

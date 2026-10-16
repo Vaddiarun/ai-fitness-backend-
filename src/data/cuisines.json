@@ -1,0 +1,37 @@
+[
+ {
+  "id": "ni",
+  "name": "North Indian",
+  "regions": "India, Pakistan, Nepal"
+ },
+ {
+  "id": "si",
+  "name": "South Indian",
+  "regions": "India, Sri Lanka"
+ },
+ {
+  "id": "we",
+  "name": "Western",
+  "regions": "USA, UK, Canada, Australia"
+ },
+ {
+  "id": "me",
+  "name": "Mediterranean",
+  "regions": "Greece, Italy, Spain, Turkey"
+ },
+ {
+  "id": "mi",
+  "name": "Middle Eastern",
+  "regions": "UAE, Saudi Arabia, Egypt, Lebanon"
+ },
+ {
+  "id": "ea",
+  "name": "East Asian",
+  "regions": "China, Japan, Korea, Singapore"
+ },
+ {
+  "id": "la",
+  "name": "Latin American",
+  "regions": "Mexico, Brazil, Colombia"
+ }
+]

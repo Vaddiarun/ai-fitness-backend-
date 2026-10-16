@@ -1,0 +1,17 @@
+services:
+  api:
+    build: .
+    container_name: ai-fitness-backend
+    restart: unless-stopped
+    ports:
+      - "4000:4000"
+    environment:
+      - NODE_ENV=production
+      - PORT=4000
+      - JWT_SECRET=replace-with-a-secure-random-secret
+      - JWT_EXPIRES_IN=30d
+      - CORS_ORIGIN=*
+      - DB_FILE=/app/data/ai-fitness.db
+    volumes:
+      # Persistent storage for SQLite database
+      - ./data:/app/data

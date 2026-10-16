@@ -1,0 +1,1864 @@
+[
+ {
+  "id": "ni_oats",
+  "c": "ni",
+  "s": "b",
+  "n": "Masala oats with vegetables & milk",
+  "q": "1 bowl",
+  "k": 330,
+  "p": 13,
+  "d": "veg",
+  "al": [
+   "dairy"
+  ]
+ },
+ {
+  "id": "ni_paratha",
+  "c": "ni",
+  "s": "b",
+  "n": "Paneer-stuffed paratha with curd",
+  "q": "1 paratha + ½ bowl curd",
+  "k": 430,
+  "p": 20,
+  "d": "veg",
+  "al": [
+   "dairy",
+   "gluten"
+  ]
+ },
+ {
+  "id": "ni_chilla",
+  "c": "ni",
+  "s": "b",
+  "n": "Moong dal chilla with mint chutney",
+  "q": "2 chillas",
+  "k": 300,
+  "p": 16,
+  "d": "vegan",
+  "al": []
+ },
+ {
+  "id": "ni_besan",
+  "c": "ni",
+  "s": "b",
+  "n": "Besan chilla with veggies & curd",
+  "q": "2 chillas + curd",
+  "k": 340,
+  "p": 17,
+  "d": "veg",
+  "al": [
+   "dairy"
+  ]
+ },
+ {
+  "id": "ni_omelette",
+  "c": "ni",
+  "s": "b",
+  "n": "Masala omelette with whole-wheat toast",
+  "q": "3 eggs + 2 toast",
+  "k": 430,
+  "p": 25,
+  "d": "egg",
+  "al": [
+   "egg",
+   "gluten"
+  ]
+ },
+ {
+  "id": "ni_poha",
+  "c": "ni",
+  "s": "b",
+  "n": "Vegetable poha with peanuts",
+  "q": "1 plate",
+  "k": 320,
+  "p": 8,
+  "d": "vegan",
+  "al": [
+   "nuts"
+  ]
+ },
+ {
+  "id": "ni_rajma",
+  "c": "ni",
+  "s": "l",
+  "n": "Rajma with brown rice & salad",
+  "q": "1 bowl + 1 cup rice",
+  "k": 520,
+  "p": 19,
+  "d": "vegan",
+  "al": []
+ },
+ {
+  "id": "ni_thali",
+  "c": "ni",
+  "s": "l",
+  "n": "Roti, dal, sabzi, salad & curd",
+  "q": "2 rotis + 1 bowl dal",
+  "k": 540,
+  "p": 22,
+  "d": "veg",
+  "al": [
+   "gluten",
+   "dairy"
+  ]
+ },
+ {
+  "id": "ni_palak",
+  "c": "ni",
+  "s": "l",
+  "n": "Palak paneer with roti & salad",
+  "q": "2 rotis + 1 bowl",
+  "k": 560,
+  "p": 26,
+  "d": "veg",
+  "al": [
+   "gluten",
+   "dairy"
+  ]
+ },
+ {
+  "id": "ni_chicken",
+  "c": "ni",
+  "s": "l",
+  "n": "Chicken curry with roti & salad",
+  "q": "150 g chicken + 2 rotis",
+  "k": 580,
+  "p": 40,
+  "d": "nonveg",
+  "al": [
+   "gluten"
+  ]
+ },
+ {
+  "id": "ni_eggcurry",
+  "c": "ni",
+  "s": "l",
+  "n": "Egg curry with rice & salad",
+  "q": "2 eggs + 1 cup rice",
+  "k": 540,
+  "p": 24,
+  "d": "egg",
+  "al": [
+   "egg"
+  ]
+ },
+ {
+  "id": "ni_soya",
+  "c": "ni",
+  "s": "l",
+  "n": "Soya chunk pulao with raita",
+  "q": "1 plate + 1 bowl",
+  "k": 520,
+  "p": 30,
+  "d": "veg",
+  "al": [
+   "soy",
+   "dairy"
+  ]
+ },
+ {
+  "id": "ni_chole",
+  "c": "ni",
+  "s": "l",
+  "n": "Chole with brown rice & onion salad",
+  "q": "1 bowl + 1 cup rice",
+  "k": 530,
+  "p": 19,
+  "d": "vegan",
+  "al": []
+ },
+ {
+  "id": "ni_chana",
+  "c": "ni",
+  "s": "d",
+  "n": "Chana masala with roti & salad",
+  "q": "2 rotis + 1 bowl",
+  "k": 480,
+  "p": 18,
+  "d": "vegan",
+  "al": [
+   "gluten"
+  ]
+ },
+ {
+  "id": "ni_tikka",
+  "c": "ni",
+  "s": "d",
+  "n": "Paneer tikka with sautéed veg & 1 roti",
+  "q": "120 g paneer",
+  "k": 480,
+  "p": 28,
+  "d": "veg",
+  "al": [
+   "dairy",
+   "gluten"
+  ]
+ },
+ {
+  "id": "ni_khichdi",
+  "c": "ni",
+  "s": "d",
+  "n": "Moong dal khichdi with curd",
+  "q": "1 bowl + ½ bowl curd",
+  "k": 450,
+  "p": 18,
+  "d": "veg",
+  "al": [
+   "dairy"
+  ]
+ },
+ {
+  "id": "ni_tandoori",
+  "c": "ni",
+  "s": "d",
+  "n": "Tandoori chicken with salad & 1 roti",
+  "q": "200 g chicken",
+  "k": 470,
+  "p": 44,
+  "d": "nonveg",
+  "al": [
+   "dairy",
+   "gluten"
+  ]
+ },
+ {
+  "id": "ni_bhurji",
+  "c": "ni",
+  "s": "d",
+  "n": "Egg bhurji with 2 rotis & salad",
+  "q": "3 eggs",
+  "k": 460,
+  "p": 24,
+  "d": "egg",
+  "al": [
+   "egg",
+   "gluten"
+  ]
+ },
+ {
+  "id": "ni_dal",
+  "c": "ni",
+  "s": "d",
+  "n": "Dal tadka with jeera rice & salad",
+  "q": "1 bowl + ¾ cup rice",
+  "k": 450,
+  "p": 18,
+  "d": "vegan",
+  "al": []
+ },
+ {
+  "id": "ni_chana",
+  "c": "ni",
+  "s": "s",
+  "n": "Roasted chana",
+  "q": "40 g",
+  "k": 150,
+  "p": 8,
+  "d": "vegan",
+  "al": []
+ },
+ {
+  "id": "ni_chaas",
+  "c": "ni",
+  "s": "s",
+  "n": "Masala buttermilk with roasted peanuts",
+  "q": "1 glass + 20 g",
+  "k": 200,
+  "p": 9,
+  "d": "veg",
+  "al": [
+   "dairy",
+   "nuts"
+  ]
+ },
+ {
+  "id": "ni_makhana",
+  "c": "ni",
+  "s": "s",
+  "n": "Roasted makhana",
+  "q": "30 g",
+  "k": 120,
+  "p": 4,
+  "d": "vegan",
+  "al": []
+ },
+ {
+  "id": "ni_sprouts",
+  "c": "ni",
+  "s": "s",
+  "n": "Sprouts chaat",
+  "q": "1 bowl",
+  "k": 180,
+  "p": 11,
+  "d": "vegan",
+  "al": []
+ },
+ {
+  "id": "si_idli",
+  "c": "si",
+  "s": "b",
+  "n": "Idli with sambar & coconut chutney",
+  "q": "3 idlis + 1 bowl",
+  "k": 330,
+  "p": 11,
+  "d": "vegan",
+  "al": []
+ },
+ {
+  "id": "si_pesarattu",
+  "c": "si",
+  "s": "b",
+  "n": "Pesarattu (green gram dosa) with ginger chutney",
+  "q": "2 dosas",
+  "k": 320,
+  "p": 16,
+  "d": "vegan",
+  "al": []
+ },
+ {
+  "id": "si_ragi",
+  "c": "si",
+  "s": "b",
+  "n": "Ragi dosa with sambar",
+  "q": "2 dosas + 1 bowl",
+  "k": 340,
+  "p": 11,
+  "d": "vegan",
+  "al": []
+ },
+ {
+  "id": "si_upma",
+  "c": "si",
+  "s": "b",
+  "n": "Vegetable rava upma",
+  "q": "1 plate",
+  "k": 310,
+  "p": 8,
+  "d": "vegan",
+  "al": [
+   "gluten"
+  ]
+ },
+ {
+  "id": "si_eggdosa",
+  "c": "si",
+  "s": "b",
+  "n": "Egg dosa with tomato chutney",
+  "q": "2 dosas",
+  "k": 390,
+  "p": 19,
+  "d": "egg",
+  "al": [
+   "egg"
+  ]
+ },
+ {
+  "id": "si_uttapam",
+  "c": "si",
+  "s": "b",
+  "n": "Vegetable uttapam with sambar",
+  "q": "2 small",
+  "k": 350,
+  "p": 11,
+  "d": "vegan",
+  "al": []
+ },
+ {
+  "id": "si_sambar",
+  "c": "si",
+  "s": "l",
+  "n": "Sambar rice with poriyal & curd",
+  "q": "1 plate + ½ bowl curd",
+  "k": 520,
+  "p": 16,
+  "d": "veg",
+  "al": [
+   "dairy"
+  ]
+ },
+ {
+  "id": "si_rasam",
+  "c": "si",
+  "s": "l",
+  "n": "Rasam, rice, kootu & curd",
+  "q": "1 plate",
+  "k": 480,
+  "p": 15,
+  "d": "veg",
+  "al": [
+   "dairy"
+  ]
+ },
+ {
+  "id": "si_chettinad",
+  "c": "si",
+  "s": "l",
+  "n": "Chicken chettinad with rice",
+  "q": "150 g chicken + 1 cup rice",
+  "k": 580,
+  "p": 38,
+  "d": "nonveg",
+  "al": []
+ },
+ {
+  "id": "si_meen",
+  "c": "si",
+  "s": "l",
+  "n": "Kerala fish curry with red rice",
+  "q": "150 g fish + 1 cup rice",
+  "k": 540,
+  "p": 36,
+  "d": "nonveg",
+  "al": [
+   "fish"
+  ]
+ },
+ {
+  "id": "si_eggcurry",
+  "c": "si",
+  "s": "l",
+  "n": "Egg curry with ragi mudde",
+  "q": "2 eggs + 1 ball",
+  "k": 520,
+  "p": 22,
+  "d": "egg",
+  "al": [
+   "egg"
+  ]
+ },
+ {
+  "id": "si_lemon",
+  "c": "si",
+  "s": "l",
+  "n": "Lemon rice with chana sundal",
+  "q": "1 plate + 1 bowl",
+  "k": 500,
+  "p": 17,
+  "d": "vegan",
+  "al": [
+   "nuts"
+  ]
+ },
+ {
+  "id": "si_curdrice",
+  "c": "si",
+  "s": "l",
+  "n": "Curd rice with sprouts salad",
+  "q": "1 bowl + 1 bowl",
+  "k": 450,
+  "p": 16,
+  "d": "veg",
+  "al": [
+   "dairy"
+  ]
+ },
+ {
+  "id": "si_kurma",
+  "c": "si",
+  "s": "d",
+  "n": "Chapati with vegetable kurma",
+  "q": "2 chapatis + 1 bowl",
+  "k": 460,
+  "p": 12,
+  "d": "vegan",
+  "al": [
+   "gluten"
+  ]
+ },
+ {
+  "id": "si_pongal",
+  "c": "si",
+  "s": "d",
+  "n": "Millet pongal with sambar",
+  "q": "1 bowl + 1 bowl",
+  "k": 450,
+  "p": 15,
+  "d": "veg",
+  "al": [
+   "dairy"
+  ]
+ },
+ {
+  "id": "si_fish",
+  "c": "si",
+  "s": "d",
+  "n": "Grilled fish with avial",
+  "q": "150 g fish + 1 bowl",
+  "k": 440,
+  "p": 36,
+  "d": "nonveg",
+  "al": [
+   "fish"
+  ]
+ },
+ {
+  "id": "si_pepper",
+  "c": "si",
+  "s": "d",
+  "n": "Chicken pepper fry with chapati",
+  "q": "150 g chicken + 2 chapatis",
+  "k": 480,
+  "p": 38,
+  "d": "nonveg",
+  "al": [
+   "gluten"
+  ]
+ },
+ {
+  "id": "si_appam",
+  "c": "si",
+  "s": "d",
+  "n": "Egg roast with appam",
+  "q": "2 eggs + 2 appams",
+  "k": 460,
+  "p": 20,
+  "d": "egg",
+  "al": [
+   "egg"
+  ]
+ },
+ {
+  "id": "si_paneer",
+  "c": "si",
+  "s": "d",
+  "n": "Paneer pepper fry with chapati",
+  "q": "120 g paneer + 2 chapatis",
+  "k": 480,
+  "p": 26,
+  "d": "veg",
+  "al": [
+   "dairy",
+   "gluten"
+  ]
+ },
+ {
+  "id": "si_sundal",
+  "c": "si",
+  "s": "s",
+  "n": "Chana sundal",
+  "q": "1 bowl",
+  "k": 160,
+  "p": 9,
+  "d": "vegan",
+  "al": []
+ },
+ {
+  "id": "si_coconut",
+  "c": "si",
+  "s": "s",
+  "n": "Tender coconut water with almonds",
+  "q": "1 coconut + 10 almonds",
+  "k": 170,
+  "p": 4,
+  "d": "vegan",
+  "al": [
+   "nuts"
+  ]
+ },
+ {
+  "id": "si_banana",
+  "c": "si",
+  "s": "s",
+  "n": "Banana with roasted peanuts",
+  "q": "1 banana + 20 g",
+  "k": 230,
+  "p": 7,
+  "d": "vegan",
+  "al": [
+   "nuts"
+  ]
+ },
+ {
+  "id": "si_moru",
+  "c": "si",
+  "s": "s",
+  "n": "Spiced buttermilk (moru)",
+  "q": "1 glass",
+  "k": 60,
+  "p": 3,
+  "d": "veg",
+  "al": [
+   "dairy"
+  ]
+ },
+ {
+  "id": "we_oatmeal",
+  "c": "we",
+  "s": "b",
+  "n": "Oatmeal with berries & peanut butter",
+  "q": "1 bowl",
+  "k": 380,
+  "p": 13,
+  "d": "vegan",
+  "al": [
+   "nuts"
+  ]
+ },
+ {
+  "id": "we_parfait",
+  "c": "we",
+  "s": "b",
+  "n": "Greek yogurt parfait with granola & fruit",
+  "q": "200 g yogurt",
+  "k": 340,
+  "p": 21,
+  "d": "veg",
+  "al": [
+   "dairy",
+   "gluten"
+  ]
+ },
+ {
+  "id": "we_eggs",
+  "c": "we",
+  "s": "b",
+  "n": "Scrambled eggs on whole-grain toast",
+  "q": "3 eggs + 2 slices",
+  "k": 400,
+  "p": 24,
+  "d": "egg",
+  "al": [
+   "egg",
+   "gluten"
+  ]
+ },
+ {
+  "id": "we_avotoast",
+  "c": "we",
+  "s": "b",
+  "n": "Avocado toast with poached eggs",
+  "q": "2 slices + 2 eggs",
+  "k": 420,
+  "p": 20,
+  "d": "egg",
+  "al": [
+   "egg",
+   "gluten"
+  ]
+ },
+ {
+  "id": "we_smoothie",
+  "c": "we",
+  "s": "b",
+  "n": "Protein smoothie (milk, banana, oats, whey)",
+  "q": "1 large glass",
+  "k": 380,
+  "p": 32,
+  "d": "veg",
+  "al": [
+   "dairy"
+  ]
+ },
+ {
+  "id": "we_tofu",
+  "c": "we",
+  "s": "b",
+  "n": "Tofu scramble with spinach & toast",
+  "q": "150 g tofu + 1 slice",
+  "k": 340,
+  "p": 23,
+  "d": "vegan",
+  "al": [
+   "soy",
+   "gluten"
+  ]
+ },
+ {
+  "id": "we_chsalad",
+  "c": "we",
+  "s": "l",
+  "n": "Grilled chicken salad with quinoa",
+  "q": "150 g chicken",
+  "k": 520,
+  "p": 42,
+  "d": "nonveg",
+  "al": []
+ },
+ {
+  "id": "we_turkey",
+  "c": "we",
+  "s": "l",
+  "n": "Turkey & veggie whole-wheat wrap",
+  "q": "1 large wrap",
+  "k": 500,
+  "p": 34,
+  "d": "nonveg",
+  "al": [
+   "gluten"
+  ]
+ },
+ {
+  "id": "we_tuna",
+  "c": "we",
+  "s": "l",
+  "n": "Tuna salad sandwich with side salad",
+  "q": "1 sandwich",
+  "k": 480,
+  "p": 32,
+  "d": "nonveg",
+  "al": [
+   "fish",
+   "gluten",
+   "egg"
+  ]
+ },
+ {
+  "id": "we_bean",
+  "c": "we",
+  "s": "l",
+  "n": "Black bean burger with salad",
+  "q": "1 burger",
+  "k": 520,
+  "p": 20,
+  "d": "vegan",
+  "al": [
+   "gluten"
+  ]
+ },
+ {
+  "id": "we_lentil",
+  "c": "we",
+  "s": "l",
+  "n": "Lentil soup with whole-grain bread",
+  "q": "1 large bowl + 1 slice",
+  "k": 480,
+  "p": 22,
+  "d": "vegan",
+  "al": [
+   "gluten"
+  ]
+ },
+ {
+  "id": "we_feta",
+  "c": "we",
+  "s": "l",
+  "n": "Quinoa bowl with chickpeas & feta",
+  "q": "1 bowl",
+  "k": 520,
+  "p": 22,
+  "d": "veg",
+  "al": [
+   "dairy"
+  ]
+ },
+ {
+  "id": "we_eggsalad",
+  "c": "we",
+  "s": "l",
+  "n": "Egg salad on rye with greens",
+  "q": "1 sandwich",
+  "k": 480,
+  "p": 22,
+  "d": "egg",
+  "al": [
+   "egg",
+   "gluten"
+  ]
+ },
+ {
+  "id": "we_salmon",
+  "c": "we",
+  "s": "d",
+  "n": "Salmon, sweet potato & broccoli",
+  "q": "150 g salmon",
+  "k": 550,
+  "p": 38,
+  "d": "nonveg",
+  "al": [
+   "fish"
+  ]
+ },
+ {
+  "id": "we_stirfry",
+  "c": "we",
+  "s": "d",
+  "n": "Chicken stir-fry with brown rice",
+  "q": "150 g chicken + ¾ cup rice",
+  "k": 520,
+  "p": 40,
+  "d": "nonveg",
+  "al": [
+   "soy"
+  ]
+ },
+ {
+  "id": "we_chili",
+  "c": "we",
+  "s": "d",
+  "n": "Lean beef & bean chili",
+  "q": "1 large bowl",
+  "k": 520,
+  "p": 40,
+  "d": "nonveg",
+  "al": []
+ },
+ {
+  "id": "we_omelette",
+  "c": "we",
+  "s": "d",
+  "n": "Veggie omelette with salad",
+  "q": "3 eggs",
+  "k": 420,
+  "p": 26,
+  "d": "egg",
+  "al": [
+   "egg",
+   "dairy"
+  ]
+ },
+ {
+  "id": "we_tofustir",
+  "c": "we",
+  "s": "d",
+  "n": "Tofu stir-fry with brown rice",
+  "q": "150 g tofu",
+  "k": 450,
+  "p": 24,
+  "d": "vegan",
+  "al": [
+   "soy"
+  ]
+ },
+ {
+  "id": "we_pasta",
+  "c": "we",
+  "s": "d",
+  "n": "Whole-wheat pasta with lentil bolognese",
+  "q": "1 plate",
+  "k": 520,
+  "p": 24,
+  "d": "vegan",
+  "al": [
+   "gluten"
+  ]
+ },
+ {
+  "id": "we_lasagna",
+  "c": "we",
+  "s": "d",
+  "n": "Vegetable lasagna with side salad",
+  "q": "1 portion",
+  "k": 520,
+  "p": 24,
+  "d": "veg",
+  "al": [
+   "gluten",
+   "dairy"
+  ]
+ },
+ {
+  "id": "we_applepb",
+  "c": "we",
+  "s": "s",
+  "n": "Apple with peanut butter",
+  "q": "1 apple + 1 tbsp",
+  "k": 200,
+  "p": 5,
+  "d": "vegan",
+  "al": [
+   "nuts"
+  ]
+ },
+ {
+  "id": "we_hummus",
+  "c": "we",
+  "s": "s",
+  "n": "Hummus with carrot sticks",
+  "q": "3 tbsp + veg",
+  "k": 160,
+  "p": 5,
+  "d": "vegan",
+  "al": []
+ },
+ {
+  "id": "we_cheese",
+  "c": "we",
+  "s": "s",
+  "n": "String cheese with grapes",
+  "q": "1 stick + 1 cup",
+  "k": 160,
+  "p": 8,
+  "d": "veg",
+  "al": [
+   "dairy"
+  ]
+ },
+ {
+  "id": "we_trail",
+  "c": "we",
+  "s": "s",
+  "n": "Trail mix",
+  "q": "30 g",
+  "k": 170,
+  "p": 5,
+  "d": "vegan",
+  "al": [
+   "nuts"
+  ]
+ },
+ {
+  "id": "me_yogurt",
+  "c": "me",
+  "s": "b",
+  "n": "Greek yogurt with honey & walnuts",
+  "q": "200 g",
+  "k": 330,
+  "p": 20,
+  "d": "veg",
+  "al": [
+   "dairy",
+   "nuts"
+  ]
+ },
+ {
+  "id": "me_shakshuka",
+  "c": "me",
+  "s": "b",
+  "n": "Shakshuka with whole-grain pita",
+  "q": "2 eggs + ½ pita",
+  "k": 400,
+  "p": 20,
+  "d": "egg",
+  "al": [
+   "egg",
+   "gluten"
+  ]
+ },
+ {
+  "id": "me_feta",
+  "c": "me",
+  "s": "b",
+  "n": "Toast with tomato, feta & olive oil",
+  "q": "2 slices",
+  "k": 340,
+  "p": 14,
+  "d": "veg",
+  "al": [
+   "gluten",
+   "dairy"
+  ]
+ },
+ {
+  "id": "me_oats",
+  "c": "me",
+  "s": "b",
+  "n": "Oats with figs & almonds",
+  "q": "1 bowl",
+  "k": 350,
+  "p": 10,
+  "d": "vegan",
+  "al": [
+   "nuts"
+  ]
+ },
+ {
+  "id": "me_tortilla",
+  "c": "me",
+  "s": "b",
+  "n": "Spanish tortilla slice with salad",
+  "q": "1 large slice",
+  "k": 380,
+  "p": 18,
+  "d": "egg",
+  "al": [
+   "egg"
+  ]
+ },
+ {
+  "id": "me_greek",
+  "c": "me",
+  "s": "l",
+  "n": "Greek salad with chickpeas & pita",
+  "q": "1 large bowl",
+  "k": 500,
+  "p": 18,
+  "d": "veg",
+  "al": [
+   "dairy",
+   "gluten"
+  ]
+ },
+ {
+  "id": "me_souvlaki",
+  "c": "me",
+  "s": "l",
+  "n": "Chicken souvlaki with tzatziki & salad",
+  "q": "150 g chicken",
+  "k": 540,
+  "p": 40,
+  "d": "nonveg",
+  "al": [
+   "dairy"
+  ]
+ },
+ {
+  "id": "me_lentil",
+  "c": "me",
+  "s": "l",
+  "n": "Lentil soup with crusty bread",
+  "q": "1 bowl + 1 slice",
+  "k": 480,
+  "p": 22,
+  "d": "vegan",
+  "al": [
+   "gluten"
+  ]
+ },
+ {
+  "id": "me_nicoise",
+  "c": "me",
+  "s": "l",
+  "n": "Tuna niçoise salad",
+  "q": "1 large plate",
+  "k": 480,
+  "p": 34,
+  "d": "nonveg",
+  "al": [
+   "fish",
+   "egg"
+  ]
+ },
+ {
+  "id": "me_falafel",
+  "c": "me",
+  "s": "l",
+  "n": "Falafel bowl with hummus & tabbouleh",
+  "q": "1 bowl",
+  "k": 540,
+  "p": 18,
+  "d": "vegan",
+  "al": [
+   "gluten"
+  ]
+ },
+ {
+  "id": "me_fish",
+  "c": "me",
+  "s": "d",
+  "n": "Grilled fish with roasted veg & quinoa",
+  "q": "150 g fish",
+  "k": 500,
+  "p": 38,
+  "d": "nonveg",
+  "al": [
+   "fish"
+  ]
+ },
+ {
+  "id": "me_chicken",
+  "c": "me",
+  "s": "d",
+  "n": "Lemon chicken with couscous & veg",
+  "q": "150 g chicken",
+  "k": 520,
+  "p": 40,
+  "d": "nonveg",
+  "al": [
+   "gluten"
+  ]
+ },
+ {
+  "id": "me_peppers",
+  "c": "me",
+  "s": "d",
+  "n": "Stuffed peppers with rice & beans",
+  "q": "2 peppers",
+  "k": 460,
+  "p": 15,
+  "d": "vegan",
+  "al": []
+ },
+ {
+  "id": "me_frittata",
+  "c": "me",
+  "s": "d",
+  "n": "Spinach & feta frittata with salad",
+  "q": "3 eggs",
+  "k": 420,
+  "p": 26,
+  "d": "egg",
+  "al": [
+   "egg",
+   "dairy"
+  ]
+ },
+ {
+  "id": "me_beans",
+  "c": "me",
+  "s": "d",
+  "n": "White bean & tomato stew with bread",
+  "q": "1 bowl + 1 slice",
+  "k": 460,
+  "p": 20,
+  "d": "vegan",
+  "al": [
+   "gluten"
+  ]
+ },
+ {
+  "id": "me_olives",
+  "c": "me",
+  "s": "s",
+  "n": "Olives with almonds",
+  "q": "10 olives + 10 almonds",
+  "k": 180,
+  "p": 4,
+  "d": "vegan",
+  "al": [
+   "nuts"
+  ]
+ },
+ {
+  "id": "me_hummus",
+  "c": "me",
+  "s": "s",
+  "n": "Hummus with cucumber",
+  "q": "3 tbsp + veg",
+  "k": 150,
+  "p": 5,
+  "d": "vegan",
+  "al": []
+ },
+ {
+  "id": "me_yog",
+  "c": "me",
+  "s": "s",
+  "n": "Plain Greek yogurt",
+  "q": "150 g",
+  "k": 120,
+  "p": 13,
+  "d": "veg",
+  "al": [
+   "dairy"
+  ]
+ },
+ {
+  "id": "mi_ful",
+  "c": "mi",
+  "s": "b",
+  "n": "Ful medames with pita & vegetables",
+  "q": "1 bowl + ½ pita",
+  "k": 400,
+  "p": 18,
+  "d": "vegan",
+  "al": [
+   "gluten"
+  ]
+ },
+ {
+  "id": "mi_labneh",
+  "c": "mi",
+  "s": "b",
+  "n": "Labneh with za’atar, cucumber & pita",
+  "q": "1 plate",
+  "k": 360,
+  "p": 14,
+  "d": "veg",
+  "al": [
+   "dairy",
+   "gluten"
+  ]
+ },
+ {
+  "id": "mi_eggs",
+  "c": "mi",
+  "s": "b",
+  "n": "Eggs with sumac, tomato & flatbread",
+  "q": "2 eggs + ½ flatbread",
+  "k": 400,
+  "p": 22,
+  "d": "egg",
+  "al": [
+   "egg",
+   "gluten"
+  ]
+ },
+ {
+  "id": "mi_oats",
+  "c": "mi",
+  "s": "b",
+  "n": "Oats with dates & tahini",
+  "q": "1 bowl",
+  "k": 380,
+  "p": 11,
+  "d": "vegan",
+  "al": []
+ },
+ {
+  "id": "mi_shawarma",
+  "c": "mi",
+  "s": "l",
+  "n": "Chicken shawarma plate with salad",
+  "q": "150 g chicken",
+  "k": 560,
+  "p": 40,
+  "d": "nonveg",
+  "al": [
+   "gluten"
+  ]
+ },
+ {
+  "id": "mi_mujaddara",
+  "c": "mi",
+  "s": "l",
+  "n": "Mujaddara (lentils & rice) with salad",
+  "q": "1 plate",
+  "k": 520,
+  "p": 20,
+  "d": "vegan",
+  "al": []
+ },
+ {
+  "id": "mi_falafel",
+  "c": "mi",
+  "s": "l",
+  "n": "Falafel wrap with tahini",
+  "q": "1 wrap",
+  "k": 520,
+  "p": 16,
+  "d": "vegan",
+  "al": [
+   "gluten"
+  ]
+ },
+ {
+  "id": "mi_kofta",
+  "c": "mi",
+  "s": "l",
+  "n": "Beef kofta with tabbouleh",
+  "q": "150 g kofta",
+  "k": 560,
+  "p": 36,
+  "d": "nonveg",
+  "al": [
+   "gluten"
+  ]
+ },
+ {
+  "id": "mi_halloumi",
+  "c": "mi",
+  "s": "l",
+  "n": "Grilled halloumi salad",
+  "q": "1 large bowl",
+  "k": 480,
+  "p": 24,
+  "d": "veg",
+  "al": [
+   "dairy"
+  ]
+ },
+ {
+  "id": "mi_fish",
+  "c": "mi",
+  "s": "d",
+  "n": "Grilled fish with fattoush",
+  "q": "150 g fish",
+  "k": 480,
+  "p": 36,
+  "d": "nonveg",
+  "al": [
+   "fish",
+   "gluten"
+  ]
+ },
+ {
+  "id": "mi_kebab",
+  "c": "mi",
+  "s": "d",
+  "n": "Chicken kebab with hummus & salad",
+  "q": "150 g chicken",
+  "k": 500,
+  "p": 42,
+  "d": "nonveg",
+  "al": []
+ },
+ {
+  "id": "mi_soup",
+  "c": "mi",
+  "s": "d",
+  "n": "Red lentil soup with flatbread",
+  "q": "1 bowl + ½ flatbread",
+  "k": 440,
+  "p": 20,
+  "d": "vegan",
+  "al": [
+   "gluten"
+  ]
+ },
+ {
+  "id": "mi_shakshuka",
+  "c": "mi",
+  "s": "d",
+  "n": "Shakshuka with salad",
+  "q": "2 eggs",
+  "k": 380,
+  "p": 20,
+  "d": "egg",
+  "al": [
+   "egg"
+  ]
+ },
+ {
+  "id": "mi_warak",
+  "c": "mi",
+  "s": "d",
+  "n": "Stuffed vine leaves with yogurt",
+  "q": "8 pieces + ½ cup",
+  "k": 420,
+  "p": 12,
+  "d": "veg",
+  "al": [
+   "dairy"
+  ]
+ },
+ {
+  "id": "mi_dates",
+  "c": "mi",
+  "s": "s",
+  "n": "Dates with almonds",
+  "q": "3 dates + 10 almonds",
+  "k": 190,
+  "p": 4,
+  "d": "vegan",
+  "al": [
+   "nuts"
+  ]
+ },
+ {
+  "id": "mi_laban",
+  "c": "mi",
+  "s": "s",
+  "n": "Laban (yogurt drink)",
+  "q": "1 glass",
+  "k": 110,
+  "p": 7,
+  "d": "veg",
+  "al": [
+   "dairy"
+  ]
+ },
+ {
+  "id": "mi_chickpeas",
+  "c": "mi",
+  "s": "s",
+  "n": "Roasted chickpeas",
+  "q": "40 g",
+  "k": 150,
+  "p": 8,
+  "d": "vegan",
+  "al": []
+ },
+ {
+  "id": "ea_congee",
+  "c": "ea",
+  "s": "b",
+  "n": "Congee with egg & greens",
+  "q": "1 bowl",
+  "k": 320,
+  "p": 14,
+  "d": "egg",
+  "al": [
+   "egg"
+  ]
+ },
+ {
+  "id": "ea_bun",
+  "c": "ea",
+  "s": "b",
+  "n": "Whole-wheat steamed bun with soy milk",
+  "q": "1 bun + 1 glass",
+  "k": 350,
+  "p": 14,
+  "d": "vegan",
+  "al": [
+   "gluten",
+   "soy"
+  ]
+ },
+ {
+  "id": "ea_tamago",
+  "c": "ea",
+  "s": "b",
+  "n": "Tamagoyaki, rice & miso soup",
+  "q": "2 eggs + ½ cup rice",
+  "k": 380,
+  "p": 18,
+  "d": "egg",
+  "al": [
+   "egg",
+   "soy"
+  ]
+ },
+ {
+  "id": "ea_tofu",
+  "c": "ea",
+  "s": "b",
+  "n": "Tofu & vegetable rice porridge",
+  "q": "1 bowl",
+  "k": 300,
+  "p": 14,
+  "d": "vegan",
+  "al": [
+   "soy"
+  ]
+ },
+ {
+  "id": "ea_stirfry",
+  "c": "ea",
+  "s": "l",
+  "n": "Chicken & vegetable stir-fry with rice",
+  "q": "150 g chicken + 1 cup rice",
+  "k": 540,
+  "p": 38,
+  "d": "nonveg",
+  "al": [
+   "soy"
+  ]
+ },
+ {
+  "id": "ea_tofu",
+  "c": "ea",
+  "s": "l",
+  "n": "Tofu & broccoli with brown rice",
+  "q": "150 g tofu",
+  "k": 480,
+  "p": 24,
+  "d": "vegan",
+  "al": [
+   "soy"
+  ]
+ },
+ {
+  "id": "ea_noodle",
+  "c": "ea",
+  "s": "l",
+  "n": "Beef noodle soup",
+  "q": "1 large bowl",
+  "k": 520,
+  "p": 34,
+  "d": "nonveg",
+  "al": [
+   "gluten",
+   "soy"
+  ]
+ },
+ {
+  "id": "ea_friedrice",
+  "c": "ea",
+  "s": "l",
+  "n": "Vegetable egg fried rice",
+  "q": "1 plate",
+  "k": 520,
+  "p": 18,
+  "d": "egg",
+  "al": [
+   "egg",
+   "soy"
+  ]
+ },
+ {
+  "id": "ea_bibimbap",
+  "c": "ea",
+  "s": "l",
+  "n": "Bibimbap with egg",
+  "q": "1 bowl",
+  "k": 540,
+  "p": 22,
+  "d": "egg",
+  "al": [
+   "egg",
+   "soy"
+  ]
+ },
+ {
+  "id": "ea_teriyaki",
+  "c": "ea",
+  "s": "l",
+  "n": "Salmon teriyaki with rice",
+  "q": "150 g salmon",
+  "k": 560,
+  "p": 36,
+  "d": "nonveg",
+  "al": [
+   "fish",
+   "soy"
+  ]
+ },
+ {
+  "id": "ea_fish",
+  "c": "ea",
+  "s": "d",
+  "n": "Steamed fish with greens & rice",
+  "q": "150 g fish + ¾ cup rice",
+  "k": 460,
+  "p": 36,
+  "d": "nonveg",
+  "al": [
+   "fish",
+   "soy"
+  ]
+ },
+ {
+  "id": "ea_mapo",
+  "c": "ea",
+  "s": "d",
+  "n": "Mapo tofu with rice",
+  "q": "1 bowl + ¾ cup rice",
+  "k": 480,
+  "p": 22,
+  "d": "vegan",
+  "al": [
+   "soy"
+  ]
+ },
+ {
+  "id": "ea_soup",
+  "c": "ea",
+  "s": "d",
+  "n": "Chicken noodle soup",
+  "q": "1 large bowl",
+  "k": 450,
+  "p": 32,
+  "d": "nonveg",
+  "al": [
+   "gluten"
+  ]
+ },
+ {
+  "id": "ea_tomegg",
+  "c": "ea",
+  "s": "d",
+  "n": "Stir-fried tomato & egg with rice",
+  "q": "3 eggs",
+  "k": 460,
+  "p": 18,
+  "d": "egg",
+  "al": [
+   "egg"
+  ]
+ },
+ {
+  "id": "ea_soba",
+  "c": "ea",
+  "s": "d",
+  "n": "Soba with edamame & vegetables",
+  "q": "1 bowl",
+  "k": 460,
+  "p": 22,
+  "d": "vegan",
+  "al": [
+   "gluten",
+   "soy"
+  ]
+ },
+ {
+  "id": "ea_edamame",
+  "c": "ea",
+  "s": "s",
+  "n": "Steamed edamame",
+  "q": "1 cup",
+  "k": 120,
+  "p": 11,
+  "d": "vegan",
+  "al": [
+   "soy"
+  ]
+ },
+ {
+  "id": "ea_soymilk",
+  "c": "ea",
+  "s": "s",
+  "n": "Unsweetened soy milk",
+  "q": "1 glass",
+  "k": 100,
+  "p": 7,
+  "d": "vegan",
+  "al": [
+   "soy"
+  ]
+ },
+ {
+  "id": "ea_seaweed",
+  "c": "ea",
+  "s": "s",
+  "n": "Roasted seaweed with cashews",
+  "q": "1 pack + 10 nuts",
+  "k": 150,
+  "p": 5,
+  "d": "vegan",
+  "al": [
+   "nuts"
+  ]
+ },
+ {
+  "id": "la_rancheros",
+  "c": "la",
+  "s": "b",
+  "n": "Huevos rancheros with beans",
+  "q": "2 eggs + 1 tortilla",
+  "k": 420,
+  "p": 22,
+  "d": "egg",
+  "al": [
+   "egg"
+  ]
+ },
+ {
+  "id": "la_burrito",
+  "c": "la",
+  "s": "b",
+  "n": "Egg & black bean breakfast burrito",
+  "q": "1 burrito",
+  "k": 450,
+  "p": 24,
+  "d": "egg",
+  "al": [
+   "egg",
+   "gluten"
+  ]
+ },
+ {
+  "id": "la_avena",
+  "c": "la",
+  "s": "b",
+  "n": "Avena (oats cooked in milk) with banana",
+  "q": "1 bowl",
+  "k": 340,
+  "p": 12,
+  "d": "veg",
+  "al": [
+   "dairy"
+  ]
+ },
+ {
+  "id": "la_tacos",
+  "c": "la",
+  "s": "b",
+  "n": "Tofu & bean breakfast tacos",
+  "q": "2 tacos",
+  "k": 380,
+  "p": 20,
+  "d": "vegan",
+  "al": [
+   "soy"
+  ]
+ },
+ {
+  "id": "la_arepa",
+  "c": "la",
+  "s": "b",
+  "n": "Arepa with black beans & avocado",
+  "q": "1 arepa",
+  "k": 380,
+  "p": 12,
+  "d": "vegan",
+  "al": []
+ },
+ {
+  "id": "la_bowl",
+  "c": "la",
+  "s": "l",
+  "n": "Chicken burrito bowl",
+  "q": "150 g chicken + rice & beans",
+  "k": 560,
+  "p": 42,
+  "d": "nonveg",
+  "al": []
+ },
+ {
+  "id": "la_beans",
+  "c": "la",
+  "s": "l",
+  "n": "Black beans & rice with salsa",
+  "q": "1 plate",
+  "k": 520,
+  "p": 18,
+  "d": "vegan",
+  "al": []
+ },
+ {
+  "id": "la_fishtacos",
+  "c": "la",
+  "s": "l",
+  "n": "Fish tacos with cabbage slaw",
+  "q": "3 tacos",
+  "k": 500,
+  "p": 32,
+  "d": "nonveg",
+  "al": [
+   "fish"
+  ]
+ },
+ {
+  "id": "la_soup",
+  "c": "la",
+  "s": "l",
+  "n": "Chicken tortilla soup",
+  "q": "1 large bowl",
+  "k": 420,
+  "p": 32,
+  "d": "nonveg",
+  "al": []
+ },
+ {
+  "id": "la_quesadilla",
+  "c": "la",
+  "s": "l",
+  "n": "Bean & cheese quesadilla with salad",
+  "q": "1 quesadilla",
+  "k": 520,
+  "p": 24,
+  "d": "veg",
+  "al": [
+   "gluten",
+   "dairy"
+  ]
+ },
+ {
+  "id": "la_fajitas",
+  "c": "la",
+  "s": "d",
+  "n": "Chicken fajitas with tortillas",
+  "q": "150 g chicken + 2 tortillas",
+  "k": 500,
+  "p": 40,
+  "d": "nonveg",
+  "al": [
+   "gluten"
+  ]
+ },
+ {
+  "id": "la_ceviche",
+  "c": "la",
+  "s": "d",
+  "n": "Fish ceviche with tostadas",
+  "q": "150 g fish + 2 tostadas",
+  "k": 420,
+  "p": 34,
+  "d": "nonveg",
+  "al": [
+   "fish"
+  ]
+ },
+ {
+  "id": "la_chili",
+  "c": "la",
+  "s": "d",
+  "n": "Three-bean chili",
+  "q": "1 large bowl",
+  "k": 460,
+  "p": 22,
+  "d": "vegan",
+  "al": []
+ },
+ {
+  "id": "la_enchiladas",
+  "c": "la",
+  "s": "d",
+  "n": "Vegetable enchiladas",
+  "q": "2 enchiladas",
+  "k": 500,
+  "p": 20,
+  "d": "veg",
+  "al": [
+   "gluten",
+   "dairy"
+  ]
+ },
+ {
+  "id": "la_eggtacos",
+  "c": "la",
+  "s": "d",
+  "n": "Egg & vegetable tacos",
+  "q": "3 tacos",
+  "k": 440,
+  "p": 22,
+  "d": "egg",
+  "al": [
+   "egg"
+  ]
+ },
+ {
+  "id": "la_fruit",
+  "c": "la",
+  "s": "s",
+  "n": "Fruit cup with lime & chili",
+  "q": "1 cup",
+  "k": 120,
+  "p": 2,
+  "d": "vegan",
+  "al": []
+ },
+ {
+  "id": "la_pepitas",
+  "c": "la",
+  "s": "s",
+  "n": "Roasted pumpkin seeds",
+  "q": "30 g",
+  "k": 160,
+  "p": 9,
+  "d": "vegan",
+  "al": []
+ },
+ {
+  "id": "la_beandip",
+  "c": "la",
+  "s": "s",
+  "n": "Black bean dip with veg sticks",
+  "q": "¼ cup + veg",
+  "k": 150,
+  "p": 7,
+  "d": "vegan",
+  "al": []
+ },
+ {
+  "id": "all_shake",
+  "c": "all",
+  "s": "s",
+  "n": "Protein shake with water",
+  "q": "1 scoop",
+  "k": 130,
+  "p": 24,
+  "d": "veg",
+  "al": [
+   "dairy"
+  ]
+ },
+ {
+  "id": "all_eggs",
+  "c": "all",
+  "s": "s",
+  "n": "Boiled eggs",
+  "q": "2 eggs",
+  "k": 140,
+  "p": 12,
+  "d": "egg",
+  "al": [
+   "egg"
+  ]
+ },
+ {
+  "id": "all_fruit",
+  "c": "all",
+  "s": "s",
+  "n": "Seasonal fruit",
+  "q": "1 bowl",
+  "k": 110,
+  "p": 2,
+  "d": "vegan",
+  "al": []
+ },
+ {
+  "id": "all_nuts",
+  "c": "all",
+  "s": "s",
+  "n": "Mixed nuts",
+  "q": "25 g",
+  "k": 160,
+  "p": 5,
+  "d": "vegan",
+  "al": [
+   "nuts"
+  ]
+ }
+]

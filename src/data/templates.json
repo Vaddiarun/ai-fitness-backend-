@@ -1,0 +1,235 @@
+{
+ "pools": {
+  "chest": [
+   "bench",
+   "dbbench",
+   "pushup"
+  ],
+  "chest2": [
+   "machinepress",
+   "dbbench",
+   "inclinepush"
+  ],
+  "back": [
+   "pulldown",
+   "dbrow",
+   "tablerow"
+  ],
+  "back2": [
+   "cablerow",
+   "bentrow",
+   "superman"
+  ],
+  "quad": [
+   "backsquat",
+   "goblet",
+   "sqbw"
+  ],
+  "hinge": [
+   "rdl",
+   "glutebridge"
+  ],
+  "lunge": [
+   "dblunge",
+   "lunge"
+  ],
+  "glute": [
+   "glutebridge"
+  ],
+  "step": [
+   "stepup"
+  ],
+  "shoulders": [
+   "dbpress",
+   "pike"
+  ],
+  "lateral": [
+   "lateral",
+   "pike"
+  ],
+  "rear": [
+   "facepull",
+   "revfly",
+   "superman"
+  ],
+  "triceps": [
+   "pushdown",
+   "ohext",
+   "dips"
+  ],
+  "biceps": [
+   "curl",
+   "towelcurl"
+  ],
+  "calves": [
+   "calf"
+  ],
+  "core": [
+   "plank",
+   "deadbug"
+  ],
+  "core2": [
+   "bicycle",
+   "mountain"
+  ],
+  "legpress": [
+   "legpress",
+   "goblet",
+   "wallsit"
+  ]
+ },
+ "templates": {
+  "fullA": {
+   "name": "Full body A",
+   "focus": "Squat, push, pull",
+   "slots": [
+    "quad",
+    "chest",
+    "back",
+    "hinge",
+    "shoulders",
+    "core"
+   ]
+  },
+  "fullB": {
+   "name": "Full body B",
+   "focus": "Lunge, push, pull",
+   "slots": [
+    "lunge",
+    "chest2",
+    "back2",
+    "glute",
+    "lateral",
+    "core2"
+   ]
+  },
+  "fullC": {
+   "name": "Full body C",
+   "focus": "Legs, push, pull",
+   "slots": [
+    "legpress",
+    "chest",
+    "back",
+    "step",
+    "triceps",
+    "core"
+   ]
+  },
+  "upperA": {
+   "name": "Upper body A",
+   "focus": "Chest, back, shoulders",
+   "slots": [
+    "chest",
+    "back",
+    "shoulders",
+    "back2",
+    "triceps",
+    "biceps"
+   ]
+  },
+  "upperB": {
+   "name": "Upper body B",
+   "focus": "Back, chest, arms",
+   "slots": [
+    "back2",
+    "chest2",
+    "lateral",
+    "rear",
+    "biceps",
+    "triceps"
+   ]
+  },
+  "lowerA": {
+   "name": "Lower body A",
+   "focus": "Squat focus",
+   "slots": [
+    "quad",
+    "hinge",
+    "lunge",
+    "calves",
+    "core",
+    "glute"
+   ]
+  },
+  "lowerB": {
+   "name": "Lower body B",
+   "focus": "Hip focus",
+   "slots": [
+    "hinge",
+    "legpress",
+    "step",
+    "glute",
+    "calves",
+    "core2"
+   ]
+  },
+  "push": {
+   "name": "Push day",
+   "focus": "Chest, shoulders, triceps",
+   "slots": [
+    "chest",
+    "shoulders",
+    "chest2",
+    "lateral",
+    "triceps",
+    "core"
+   ]
+  },
+  "pull": {
+   "name": "Pull day",
+   "focus": "Back, rear shoulders, biceps",
+   "slots": [
+    "back",
+    "back2",
+    "rear",
+    "biceps",
+    "core2",
+    "glute"
+   ]
+  },
+  "legs": {
+   "name": "Leg day",
+   "focus": "Thighs, glutes, calves",
+   "slots": [
+    "quad",
+    "hinge",
+    "lunge",
+    "calves",
+    "core",
+    "step"
+   ]
+  }
+ },
+ "splits": {
+  "2": {
+   "1": "fullA",
+   "4": "fullB"
+  },
+  "3": {
+   "1": "fullA",
+   "3": "fullB",
+   "5": "fullC"
+  },
+  "4": {
+   "1": "upperA",
+   "2": "lowerA",
+   "4": "upperB",
+   "5": "lowerB"
+  },
+  "5": {
+   "1": "push",
+   "2": "pull",
+   "3": "legs",
+   "4": "upperB",
+   "5": "lowerB"
+  },
+  "6": {
+   "1": "push",
+   "2": "pull",
+   "3": "legs",
+   "4": "push",
+   "5": "pull",
+   "6": "legs"
+  }
+ }
+}
