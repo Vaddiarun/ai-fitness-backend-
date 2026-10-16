@@ -13,6 +13,13 @@ function getApp() {
 }
 
 export default function handler(req, res) {
-  const app = getApp();
-  return app(req, res);
+  try {
+    const app = getApp();
+    return app(req, res);
+  } catch (err) {
+    console.error('Unhandled serverless error:', err);
+    res.statusCode = 500;
+    res.setHeader('Content-Type', 'application/json');
+    res.end(JSON.stringify({ error: err.message || 'Internal server error', stack: err.stack }));
+  }
 }
