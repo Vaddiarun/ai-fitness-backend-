@@ -4,7 +4,7 @@
   "private": true,
   "description": "API for the AI Fitness app: accounts, profile, generated workout + meal plans, logs and progress.",
   "type": "module",
-  "main": "src/server.js",
+  "main": "api/index.js",
   "engines": {
     "node": "22.x"
   },
