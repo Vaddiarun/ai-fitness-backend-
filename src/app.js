@@ -80,6 +80,7 @@ export function createApp(db) {
   /* ---------- public ---------- */
   app.get('/', (_req, res) => res.json({ name: 'ai-fitness-backend', status: 'ok', api: '/api' }));
   app.get('/health', (_req, res) => res.json({ ok: true }));
+  app.get('/api', (_req, res) => res.json({ name: 'ai-fitness-backend', status: 'ok', endpoints: '/api/*' }));
   app.get('/api/health', (_req, res) => res.json({ ok: true }));
 
   app.post('/api/auth/register', validate(S.registerSchema), (req, res) => {
