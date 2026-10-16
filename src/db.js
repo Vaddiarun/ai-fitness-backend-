@@ -48,6 +48,12 @@ CREATE TABLE IF NOT EXISTS meal_logs (
   slot_index INTEGER NOT NULL,
   PRIMARY KEY (user_id, date, slot_index)
 );
+CREATE TABLE IF NOT EXISTS password_resets (
+  user_id    INTEGER PRIMARY KEY REFERENCES users(id) ON DELETE CASCADE,
+  code_hash  TEXT NOT NULL,
+  expires_at INTEGER NOT NULL,
+  attempts   INTEGER NOT NULL DEFAULT 0
+);
 CREATE TABLE IF NOT EXISTS water_logs (
   user_id INTEGER NOT NULL REFERENCES users(id) ON DELETE CASCADE,
   date    TEXT NOT NULL,

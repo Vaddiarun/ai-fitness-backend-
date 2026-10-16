@@ -2,8 +2,10 @@ import { test, before, after } from 'node:test';
 import assert from 'node:assert/strict';
 import { openDb } from '../src/db.js';
 import { createApp } from '../src/app.js';
+import { config } from '../src/config.js';
 
 let server, base, token, db;
+const outbox = []; // emails the app would have sent
 const call = async (method, path, body) => {
   const res = await fetch(base + path, {
     method,
@@ -21,7 +23,7 @@ const profile = {
 
 before(async () => {
   db = openDb(':memory:');
-  server = createApp(db).listen(0);
+  server = createApp(db, { sendMail: async (m) => { outbox.push(m); } }).listen(0);
   await new Promise((r) => server.once('listening', r));
   base = `http://127.0.0.1:${server.address().port}/api`;
 });
@@ -51,11 +53,17 @@ test('profile builds a plan from height, weight and goal', async () => {
   assert.equal(nutrition.kcal, 1510); // Mifflin–St Jeor × 1.375 − 20%
   assert.equal(nutrition.protein, 120); // 1.8 g/kg
   assert.equal(nutrition.bmiCategory, 'Overweight');
-  assert.equal(workouts.filter((d) => d.type === 'workout').length, 4);
+  assert.equal(workouts.filter((d) => d.type === 'workout').length, 5);
   const day = workouts.find((d) => d.type === 'workout');
   assert.ok(day.exercises[0].exercise.video.youtubeId, 'exercises carry a tutorial video');
   assert.equal(meals.length, 7);
-  assert.equal(meals[0].length, 5);
+  // 5 meals a day, plus a protein top-up on days the dishes alone fall short
+  assert.ok(meals.every((d) => d.filter((m) => m.slot !== 'x').length === 5));
+  for (const d of meals) {
+    const kcal = d.reduce((s, m) => s + m.kcal, 0), protein = d.reduce((s, m) => s + m.protein, 0);
+    assert.ok(protein >= nutrition.protein * 0.95, `day protein ${protein} reaches ${nutrition.protein}`);
+    assert.ok(Math.abs(kcal - nutrition.kcal) <= nutrition.kcal * 0.15, `day kcal ${kcal} near ${nutrition.kcal}`);
+  }
   assert.ok(meals.flat().every((m) => m.food.c === 'ni' || m.food.c === 'all'), 'meals come from the chosen cuisine');
   assert.ok(meals.flat().every((m) => ['vegan', 'veg'].includes(m.food.d)), 'vegetarian plan has no meat or eggs');
 });
@@ -74,7 +82,7 @@ test('cuisine switch keeps calories and respects allergies', async () => {
 });
 
 test('logging a workout feeds history, advice and progress', async () => {
-  const today = '2026-10-15', weekday = 4; // a Thursday
+  const today = '2026-10-14', weekday = 3; // a Wednesday (leg day)
   const t = await call('GET', `/today?date=${today}&weekday=${weekday}`);
   assert.equal(t.status, 200);
   const ex = t.body.workout.exercises[0];
@@ -123,6 +131,18 @@ test('sets per exercise follow the level: 2 / 3 / 4 / 7', async () => {
   }
 });
 
+test('every plan trains 5 days with Thursday and Sunday off, whatever days the client sends', async () => {
+  for (const days of [2, 4, 6]) {
+    const r = await call('PUT', '/profile', { ...profile, days });
+    assert.equal(r.body.profile.days, 5);
+    const rest = r.body.plan.workouts.flatMap((d, weekday) => (d.type === 'rest' ? [weekday] : []));
+    assert.deepEqual(rest, [0, 4], `days=${days}`);
+  }
+  const { days: _omitted, ...withoutDays } = profile;
+  assert.equal((await call('PUT', '/profile', withoutDays)).status, 200);
+  assert.equal((await call('GET', '/me')).body.profile.days, 5);
+});
+
 test('plans saved under older rules get their workouts rebuilt on load', async () => {
   await call('PUT', '/profile', { ...profile, level: 'intermediate' });
   const row = db.prepare('SELECT user_id, data FROM plans').get();
@@ -132,7 +152,7 @@ test('plans saved under older rules get their workouts rebuilt on load', async (
   old.meals[0][0].foodId = old.meals[0][1].foodId === 'ni_chana' ? 'ni_makhana' : 'ni_chana'; // a "swap" that must survive
   db.prepare('UPDATE plans SET data = ? WHERE user_id = ?').run(JSON.stringify(old), row.user_id);
   const plan = (await call('GET', '/plan')).body;
-  assert.equal(plan.version, 2);
+  assert.equal(plan.version, 3);
   assert.ok(plan.workouts.flatMap((d) => d.exercises ?? []).every((e) => e.sets === 4));
   assert.equal(plan.meals[0][0].foodId, old.meals[0][0].foodId);
 });
@@ -141,4 +161,113 @@ test('requests without a token are refused', async () => {
   const saved = token; token = null;
   assert.equal((await call('GET', '/me')).status, 401);
   token = saved;
+});
+
+test('rest days can be moved; workouts follow and meals stay', async () => {
+  const before = (await call('GET', '/plan')).body;
+  const r = await call('PUT', '/plan/rest-days', { restDays: [6, 0] });
+  assert.equal(r.status, 200);
+  assert.deepEqual(r.body.profile.restDays, [6, 0]);
+  const rest = r.body.plan.workouts.flatMap((d, weekday) => (d.type === 'rest' ? [weekday] : []));
+  assert.deepEqual(rest, [0, 6]);
+  assert.deepEqual(r.body.plan.workouts.filter((d) => d.type === 'workout').map((d) => d.key), ['push', 'pull', 'legs', 'upperB', 'lowerB']);
+  assert.deepEqual(r.body.plan.meals.map((d) => d.map((m) => m.foodId)), before.meals.map((d) => d.map((m) => m.foodId)));
+  assert.equal((await call('PUT', '/plan/rest-days', { restDays: [3, 3] })).status, 400);
+  // editing the profile keeps the chosen rest days
+  const { restDays: _r, ...form } = { ...profile };
+  assert.deepEqual((await call('PUT', '/profile', form)).body.profile.restDays, [6, 0]);
+  await call('PUT', '/plan/rest-days', { restDays: [4, 0] });
+});
+
+test('beating a previous session reports personal records', async () => {
+  const plan = (await call('GET', '/plan')).body;
+  const day = plan.workouts.find((d) => d.type === 'workout');
+  const ex = day.exercises.find((e) => !e.exercise.timed);
+  const log = (weight) => call('POST', '/logs/workouts', { date: '2026-10-12', kind: 'plan', name: day.name, mins: 30,
+    exercises: [{ id: ex.id, sets: [{ reps: 10, weight, done: true }] }] });
+  assert.deepEqual((await log(8)).body.prs, []);
+  const pr = (await log(12)).body.prs;
+  assert.equal(pr.length, 1);
+  assert.deepEqual([pr[0].kind, pr[0].value, pr[0].previous], ['weight', 12, 8]);
+});
+
+test('progress includes a this-week vs last-week recap', async () => {
+  const p = await call('GET', '/progress?date=2026-10-14&weekday=3');
+  const { thisWeek, lastWeek } = p.body.recap;
+  assert.ok(thisWeek.done >= 1 && thisWeek.mins > 0 && thisWeek.volume > 0);
+  assert.deepEqual(lastWeek, { done: 0, mins: 0, volume: 0 });
+});
+
+test('reminders quote last performance and cover rest days', async () => {
+  await call('PUT', '/settings', { workout: true });
+  const r = (await call('GET', '/reminders')).body.reminders;
+  assert.ok(r.some((x) => x.id.startsWith('rest-') && /streak is safe/.test(x.title)));
+  assert.ok(r.filter((x) => x.kind === 'workout' && !x.id.startsWith('rest-')).every((x) => x.title.length > 0));
+});
+
+test('forgot password emails a code that resets the password once', async () => {
+  outbox.length = 0;
+  assert.equal((await call('POST', '/auth/forgot', { email: 'nobody@example.com' })).status, 200);
+  assert.equal(outbox.length, 0, 'unknown emails get the same reply but no mail');
+  await call('POST', '/auth/forgot', { email: 'priya@example.com' });
+  const code = outbox[0].text.match(/\b(\d{6})\b/)[1];
+  const wrong = code === '000000' ? '111111' : '000000';
+  assert.equal((await call('POST', '/auth/reset', { email: 'priya@example.com', code: wrong, password: 'newpass123' })).status, 400);
+  const ok = await call('POST', '/auth/reset', { email: 'priya@example.com', code, password: 'newpass123' });
+  assert.equal(ok.status, 200);
+  assert.ok(ok.body.token);
+  assert.equal((await call('POST', '/auth/reset', { email: 'priya@example.com', code, password: 'again12345' })).status, 400, 'codes are single-use');
+  assert.equal((await call('POST', '/auth/login', { email: 'priya@example.com', password: 'newpass123' })).status, 200);
+});
+
+test('admin portal: sign in, find a member by number, set their diet, then hand back to auto', async () => {
+  Object.assign(config, { adminEmail: 'coach@example.com', adminPassword: 'coach-pass-123' });
+  const member = token;
+  const me = (await call('GET', '/me')).body.user;
+  token = null;
+  assert.equal((await call('POST', '/admin/login', { email: 'coach@example.com', password: 'nope' })).status, 401);
+  const login = await call('POST', '/admin/login', { email: 'coach@example.com', password: 'coach-pass-123' });
+  assert.equal(login.status, 200);
+  const adminToken = login.body.token;
+
+  token = member;
+  assert.equal((await call('GET', '/admin/users')).status, 403, 'members cannot use admin routes');
+  token = adminToken;
+  assert.equal((await call('GET', '/me')).status, 401, 'admin tokens are not member sessions');
+
+  const found = (await call('GET', `/admin/users?q=%23${me.id}`)).body.users;
+  assert.deepEqual(found.map((u) => u.id), [me.id]);
+  const detail = (await call('GET', `/admin/users/${me.id}`)).body;
+  assert.ok(detail.profile && detail.plan && detail.autoNutrition);
+  assert.ok((await call('GET', '/admin/foods')).body.foods.length > 100);
+
+  const day = [
+    { name: 'Breakfast', time: '07:30', slot: 'b', foodId: 'ni_paratha', portion: 1 },
+    { name: 'Lunch', time: '13:00', slot: 'l', custom: { n: 'Coach special thali', q: '1 plate', k: 650, p: 45 } },
+    { name: 'Dinner', time: '20:00', slot: 'd', custom: { n: 'Paneer bhurji with 2 rotis', q: '1 plate', k: 520, p: 34 } },
+  ];
+  const bad = await call('PUT', `/admin/users/${me.id}/diet`, { days: Array(7).fill([{ name: 'X', time: '08:00', slot: 'b' }]) });
+  assert.equal(bad.status, 400);
+  const set = await call('PUT', `/admin/users/${me.id}/diet`, { days: Array(7).fill(day), targets: { kcal: 1700, protein: 125 }, note: 'Hit 125 g protein daily.' });
+  assert.equal(set.status, 200);
+
+  token = member;
+  const plan = (await call('GET', '/plan')).body;
+  assert.equal(plan.coach.note, 'Hit 125 g protein daily.');
+  assert.equal(plan.nutrition.protein, 125);
+  assert.equal(plan.meals[3][1].food.n, 'Coach special thali');
+  assert.equal(plan.meals[3][1].protein, 45);
+  assert.equal((await call('POST', '/plan/meals/swap', { day: 3, index: 0 })).status, 409, 'coach meals are locked');
+  assert.equal((await call('GET', '/reminders')).status, 200);
+  await call('PUT', '/profile', profile);
+  assert.equal((await call('GET', '/plan')).body.meals[3][1].food.n, 'Coach special thali', 'profile edits keep the coach diet');
+  const today = (await call('GET', '/today?date=2026-10-14&weekday=3')).body;
+  assert.equal(today.meals.length, 3);
+
+  token = adminToken;
+  assert.equal((await call('DELETE', `/admin/users/${me.id}/diet`)).status, 200);
+  token = member;
+  const back = (await call('GET', '/plan')).body;
+  assert.equal(back.coach, null);
+  assert.notEqual(back.nutrition.protein, 125);
 });

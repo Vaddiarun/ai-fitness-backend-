@@ -15,11 +15,32 @@ export function requireAuth(req, _res, next) {
   const header = req.get('authorization') || '';
   const token = header.startsWith('Bearer ') ? header.slice(7) : null;
   if (!token) throw new HttpError(401, 'Sign in to continue.');
+  let payload;
   try {
-    req.userId = Number(jwt.verify(token, config.jwtSecret).sub);
+    payload = jwt.verify(token, config.jwtSecret);
   } catch {
     throw new HttpError(401, 'Your session has expired. Sign in again.');
   }
+  if (payload.role === 'admin') throw new HttpError(401, 'Sign in with a member account.');
+  req.userId = Number(payload.sub);
+  next();
+}
+
+export const signAdminToken = (email) => jwt.sign({ sub: 'admin', role: 'admin', email }, config.jwtSecret, { expiresIn: '12h' });
+
+/** Admin portal requests: a token from /api/admin/login. */
+export function requireAdmin(req, _res, next) {
+  const header = req.get('authorization') || '';
+  const token = header.startsWith('Bearer ') ? header.slice(7) : null;
+  if (!token) throw new HttpError(401, 'Sign in to the admin portal.');
+  let payload;
+  try {
+    payload = jwt.verify(token, config.jwtSecret);
+  } catch {
+    throw new HttpError(401, 'Your admin session has expired. Sign in again.');
+  }
+  if (payload.role !== 'admin') throw new HttpError(403, 'Admins only.');
+  req.adminEmail = payload.email;
   next();
 }
 

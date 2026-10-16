@@ -28,6 +28,41 @@ export function streak(plan, workoutDates, today) {
   return count;
 }
 
+/** Heaviest weight and most reps in any completed set of one exercise. */
+function bestOf(sets) {
+  const done = sets.filter((s) => s.done);
+  return { weight: Math.max(0, ...done.map((s) => s.weight || 0)), reps: Math.max(0, ...done.map((s) => s.reps || 0)) };
+}
+
+/**
+ * Personal records set by a new workout, compared with every earlier log of the same exercise.
+ * Weight PRs need a previous log to beat; first-ever sessions aren't counted as records.
+ */
+export function personalRecords(exercises, previousLogs) {
+  const prs = [];
+  for (const e of exercises) {
+    const ex = EXERCISES[e.id];
+    if (!ex) continue;
+    const before = previousLogs.flatMap((w) => w.exercises.filter((x) => x.id === e.id));
+    if (!before.length) continue;
+    const now = bestOf(e.sets);
+    const prev = before.reduce((b, x) => { const o = bestOf(x.sets); return { weight: Math.max(b.weight, o.weight), reps: Math.max(b.reps, o.reps) }; }, { weight: 0, reps: 0 });
+    if (!ex.timed && now.weight > prev.weight && now.weight > 0) prs.push({ id: e.id, name: ex.name, kind: 'weight', value: now.weight, previous: prev.weight });
+    else if (now.reps > prev.reps && now.reps > 0) prs.push({ id: e.id, name: ex.name, kind: ex.timed ? 'seconds' : 'reps', value: now.reps, previous: prev.reps });
+  }
+  return prs;
+}
+
+/** Planned sessions, minutes and volume for logs in [from, to]. */
+export function weekSummary(logs, from, to) {
+  const inWeek = logs.filter((w) => w.date >= from && w.date <= to);
+  return {
+    done: inWeek.filter((w) => w.kind === 'plan').length,
+    mins: inWeek.reduce((s, w) => s + w.mins, 0),
+    volume: Math.round(inWeek.reduce((s, w) => s + w.volume, 0)),
+  };
+}
+
 /** Monday-based week containing `today`. */
 export const weekStart = (today) => addDays(today, -((weekdayOf(today) + 6) % 7));
 

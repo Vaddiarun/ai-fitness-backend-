@@ -12,4 +12,10 @@ export const config = {
   jwtExpiresIn: env.JWT_EXPIRES_IN || '30d',
   dbFile: env.DB_FILE || (isServerless ? '/tmp/ai-fitness.db' : './data/ai-fitness.db'),
   corsOrigin: env.CORS_ORIGIN || '*',
+  // Password-reset emails. Leave unset locally: the code is printed to the server console instead.
+  resendApiKey: env.RESEND_API_KEY || '',
+  mailFrom: env.MAIL_FROM || '',
+  // Admin portal sign-in. The portal is disabled until both are set.
+  adminEmail: (env.ADMIN_EMAIL || '').trim().toLowerCase(),
+  adminPassword: env.ADMIN_PASSWORD || '',
 };
