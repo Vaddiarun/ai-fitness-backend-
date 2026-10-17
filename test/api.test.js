@@ -1,3 +1,4 @@
+process.env.LOG_REQUESTS = 'false'; // keep test output readable
 import { test, before, after } from 'node:test';
 import assert from 'node:assert/strict';
 import { openDb } from '../src/db.js';
@@ -318,4 +319,38 @@ test('after a coach sends a new diet, today counts only the new meals', async ()
   token = (await call('POST', '/admin/login', { email: 'coach@example.com', password: 'coach-pass-123' })).body.token;
   await call('DELETE', `/admin/users/${me.id}/diet`);
   token = member;
+});
+
+test('with a coach diet the rings match the meals: eating everything fills them exactly', async () => {
+  Object.assign(config, { adminEmail: 'coach@example.com', adminPassword: 'coach-pass-123' });
+  const member = token;
+  const me = (await call('GET', '/me')).body.user;
+  token = (await call('POST', '/admin/login', { email: 'coach@example.com', password: 'coach-pass-123' })).body.token;
+  const day = [
+    { name: 'Breakfast', time: '08:00', slot: 'b', custom: { n: 'Coach oats', q: '1 bowl', k: 450, p: 30 } },
+    { name: 'Lunch', time: '13:00', slot: 'l', custom: { n: 'Coach thali', q: '1 plate', k: 800, p: 45 } },
+    { name: 'Dinner', time: '20:00', slot: 'd', custom: { n: 'Coach bowl', q: '1 bowl', k: 500, p: 40 } },
+  ];
+  // Targets typed by the coach that don't add up to the meals must not break the rings.
+  await call('PUT', `/admin/users/${me.id}/diet`, { days: Array(7).fill(day), targets: { kcal: 2500, protein: 160, waterGlasses: 10 } });
+
+  token = member;
+  const date = '2026-10-14', weekday = 3;
+  const t = (await call('GET', `/today?date=${date}&weekday=${weekday}`)).body;
+  assert.equal(t.nutrition.kcal, 1750, 'calorie ring target = sum of the day\'s meals');
+  assert.equal(t.nutrition.protein, 115, 'protein ring target = sum of the day\'s meals');
+  assert.equal(t.nutrition.waterGlasses, 10, 'water target still comes from the coach');
+  for (const m of t.meals) await call('POST', '/logs/meals', { date, index: m.index, eaten: true });
+  const done = (await call('GET', `/today?date=${date}&weekday=${weekday}`)).body;
+  const eatenKcal = done.meals.reduce((s, m) => s + (m.eaten ? m.kcal : 0), 0);
+  const eatenProtein = done.meals.reduce((s, m) => s + (m.eaten ? m.protein : 0), 0);
+  assert.deepEqual([eatenKcal, eatenProtein], [done.nutrition.kcal, done.nutrition.protein], 'all meals eaten = rings exactly full');
+  const plan = (await call('GET', '/plan')).body;
+  assert.deepEqual([plan.dayNutrition[weekday].kcal, plan.dayNutrition[weekday].protein], [1750, 115]);
+
+  token = (await call('POST', '/admin/login', { email: 'coach@example.com', password: 'coach-pass-123' })).body.token;
+  await call('DELETE', `/admin/users/${me.id}/diet`);
+  token = member;
+  const auto = (await call('GET', `/today?date=${date}&weekday=${weekday}`)).body;
+  assert.equal(auto.nutrition.kcal, (await call('GET', '/plan')).body.nutrition.kcal, 'automatic plans keep the calculated targets');
 });

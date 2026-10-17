@@ -234,5 +234,25 @@ export function expandPlan(plan) {
       const f = foodOf(m);
       return { ...m, food: f, kcal: Math.round(f.k * m.portion), protein: Math.round(f.p * m.portion) };
     })),
+    dayNutrition: dayNutrition(plan),
   };
+}
+
+/**
+ * Daily ring targets, one per weekday. Automatic plans use the calculated targets every day.
+ * With a coach diet, calories and protein are that day's meal totals, so eating every meal on the
+ * plan fills the rings exactly; carbs and fat follow from the calories unless the coach set them.
+ */
+export function dayNutrition(plan) {
+  const base = { ...plan.nutrition, ...(plan.nutritionOverride ?? {}) };
+  const pick = ({ kcal, protein, carbs, fat, waterGlasses }) => ({ kcal, protein, carbs, fat, waterGlasses });
+  if (!plan.customDiet) return plan.meals.map(() => pick(base));
+  const set = plan.nutritionOverride ?? {};
+  return plan.meals.map((day) => {
+    const kcal = Math.round(day.reduce((s, m) => s + foodOf(m).k * m.portion, 0));
+    const protein = Math.round(day.reduce((s, m) => s + foodOf(m).p * m.portion, 0));
+    const fat = set.fat ?? Math.round((kcal * 0.25) / 9);
+    const carbs = set.carbs ?? Math.max(0, Math.round((kcal - protein * 4 - fat * 9) / 4));
+    return { kcal, protein, carbs, fat, waterGlasses: base.waterGlasses };
+  });
 }

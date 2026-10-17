@@ -24,12 +24,34 @@ const LIBRARY_FILTERS = {
   category: facet('category'), equipment: facet('equipment'), level: facet('level'), muscle: facet('primaryMuscles'),
 };
 
+/** Field names whose values never appear in logs. */
+const SECRET_FIELDS = /pass(word)?|token|secret/i;
+const redact = (v) => JSON.stringify(v, (k, x) => (k && SECRET_FIELDS.test(k) ? '***' : x));
+
+/**
+ * One line per API call, written when the response finishes:
+ *   2026-10-17T18:20:01.123Z  POST /api/logs/meals  200  12ms  user=#4  {"date":"2026-10-17","index":0,"eaten":true}
+ * Shows who did what in the app (and in the admin portal). Passwords and tokens are masked.
+ * Set LOG_REQUESTS=false to turn it off (the tests do).
+ */
+function requestLog(req, res, next) {
+  if (process.env.LOG_REQUESTS === 'false') return next();
+  const start = Date.now();
+  res.on('finish', () => {
+    const who = req.adminEmail ? `admin=${req.adminEmail}` : req.userId ? `user=#${req.userId}` : 'guest';
+    const body = req.body && Object.keys(req.body).length ? redact(req.body).slice(0, 400) : '';
+    console.log(`${new Date().toISOString()}  ${req.method.padEnd(6)} ${req.originalUrl}  ${res.statusCode}  ${Date.now() - start}ms  ${who}${body ? '  ' + body : ''}`);
+  });
+  next();
+}
+
 export function createApp(db) {
   const app = express();
   app.disable('x-powered-by');
   app.use(helmet());
   app.use(cors({ origin: config.corsOrigin === '*' ? true : config.corsOrigin.split(',').map((s) => s.trim()) }));
   app.use(express.json({ limit: '200kb' }));
+  app.use(requestLog);
 
   /* ---------- data access ---------- */
   const q = {
@@ -261,7 +283,8 @@ export function createApp(db) {
     const eaten = new Set((await q.mealsOn.all(req.userId, date, plan.mealsRev ?? '')).map((r) => r.slot_index));
     res.json({
       date, weekday,
-      nutrition: full.nutrition,
+      // Today's ring targets: with a coach diet these are today's meal totals, so the rings match the plan.
+      nutrition: { ...full.nutrition, ...full.dayNutrition[weekday] },
       workout: full.workouts[weekday],
       completed: rowToWorkout((await q.workoutsOn.get(req.userId, date))) || null,
       meals: full.meals[weekday].map((m, i) => ({ ...m, index: i, eaten: eaten.has(i) })),

@@ -13,7 +13,8 @@
     "start": "node --env-file-if-exists=.env src/server.js",
     "test": "node --test \"test/**/*.test.js\"",
     "seed": "node scripts/seed-demo.mjs",
-    "build:library": "node scripts/build-library.mjs"
+    "build:library": "node scripts/build-library.mjs",
+    "logs:aws": "powershell -ExecutionPolicy Bypass -File scripts/aws-logs.ps1"
   },
   "dependencies": {
     "@libsql/client": "^0.14.0",
