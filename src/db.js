@@ -1,4 +1,4 @@
-import { DatabaseSync } from 'node:sqlite';
+import { createClient } from '@libsql/client';
 import { mkdirSync } from 'node:fs';
 import { dirname } from 'node:path';
 
@@ -46,6 +46,7 @@ CREATE TABLE IF NOT EXISTS meal_logs (
   user_id    INTEGER NOT NULL REFERENCES users(id) ON DELETE CASCADE,
   date       TEXT NOT NULL,
   slot_index INTEGER NOT NULL,
+  rev        TEXT NOT NULL DEFAULT '',
   PRIMARY KEY (user_id, date, slot_index)
 );
 CREATE TABLE IF NOT EXISTS admins (
@@ -61,27 +62,37 @@ CREATE TABLE IF NOT EXISTS water_logs (
 );
 `;
 
-export function openDb(file) {
-  let resolvedFile = file;
-  if (resolvedFile !== ':memory:') {
-    try {
-      mkdirSync(dirname(resolvedFile), { recursive: true });
-    } catch (err) {
-      console.warn(`Could not create directory for ${resolvedFile}, falling back to /tmp/ai-fitness.db:`, err.message);
-      resolvedFile = '/tmp/ai-fitness.db';
-      try {
-        mkdirSync(dirname(resolvedFile), { recursive: true });
-      } catch {}
-    }
+/**
+ * Opens the database: a hosted Turso/libSQL database (libsql://… with an auth token) when configured,
+ * otherwise a local SQLite file, or ":memory:" for tests. Same tables and SQL either way.
+ * Returns a small `prepare(sql)` → { get, all, run } API (async) so the routes read like before.
+ */
+export async function openDb({ url, authToken }) {
+  if (url.startsWith('file:')) {
+    try { mkdirSync(dirname(url.slice('file:'.length)), { recursive: true }); } catch { /* exists or read-only; libsql reports real problems */ }
   }
-  const db = new DatabaseSync(resolvedFile);
-  try {
-    db.exec('PRAGMA journal_mode = WAL; PRAGMA foreign_keys = ON;');
-  } catch {
-    db.exec('PRAGMA foreign_keys = ON;');
+  const client = createClient({ url, authToken });
+  await client.executeMultiple(SCHEMA);
+  // Columns added after the first release; ALTER fails harmlessly when the column already exists.
+  for (const sql of ["ALTER TABLE meal_logs ADD COLUMN rev TEXT NOT NULL DEFAULT ''"]) {
+    try { await client.execute(sql); } catch { /* already there */ }
   }
-  db.exec(SCHEMA);
-  return db;
+  // Plain objects keyed by column name (libsql rows are array-like).
+  const objects = (rs) => rs.rows.map((r) => Object.fromEntries(rs.columns.map((c, i) => [c, r[i]])));
+  return {
+    client,
+    prepare(sql) {
+      const exec = (args) => client.execute({ sql, args });
+      return {
+        get: async (...args) => objects(await exec(args))[0],
+        all: async (...args) => objects(await exec(args)),
+        run: async (...args) => {
+          const r = await exec(args);
+          return { changes: r.rowsAffected, lastInsertRowid: r.lastInsertRowid == null ? undefined : Number(r.lastInsertRowid) };
+        },
+      };
+    },
+  };
 }
 
 export const parse = (s, fallback = null) => {

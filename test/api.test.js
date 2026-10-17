@@ -21,7 +21,7 @@ const profile = {
 };
 
 before(async () => {
-  db = openDb(':memory:');
+  db = await openDb({ url: ':memory:' });
   server = createApp(db).listen(0);
   await new Promise((r) => server.once('listening', r));
   base = `http://127.0.0.1:${server.address().port}/api`;
@@ -144,12 +144,12 @@ test('every plan trains 5 days with Thursday and Sunday off, whatever days the c
 
 test('plans saved under older rules get their workouts rebuilt on load', async () => {
   await call('PUT', '/profile', { ...profile, level: 'intermediate' });
-  const row = db.prepare('SELECT user_id, data FROM plans').get();
+  const row = await db.prepare('SELECT user_id, data FROM plans').get();
   const old = JSON.parse(row.data);
   old.version = 1;
   for (const d of old.workouts) for (const e of d.exercises ?? []) e.sets = 3; // old intermediate rule
   old.meals[0][0].foodId = old.meals[0][1].foodId === 'ni_chana' ? 'ni_makhana' : 'ni_chana'; // a "swap" that must survive
-  db.prepare('UPDATE plans SET data = ? WHERE user_id = ?').run(JSON.stringify(old), row.user_id);
+  await db.prepare('UPDATE plans SET data = ? WHERE user_id = ?').run(JSON.stringify(old), row.user_id);
   const plan = (await call('GET', '/plan')).body;
   assert.equal(plan.version, 3);
   assert.ok(plan.workouts.flatMap((d) => d.exercises ?? []).every((e) => e.sets === 4));
@@ -286,5 +286,36 @@ test('first-run admin setup works once when the server has no admin settings', a
   token = login.body.token;
   assert.equal((await call('GET', '/admin/stats')).status, 200);
   Object.assign(config, saved);
+  token = member;
+});
+
+test('after a coach sends a new diet, today counts only the new meals', async () => {
+  Object.assign(config, { adminEmail: 'coach@example.com', adminPassword: 'coach-pass-123' });
+  const member = token;
+  const me = (await call('GET', '/me')).body.user;
+  const date = '2026-10-14', weekday = 3;
+  await call('POST', '/logs/meals', { date, index: 0, eaten: true });
+  await call('POST', '/logs/meals', { date, index: 1, eaten: true });
+  assert.equal((await call('GET', `/today?date=${date}&weekday=${weekday}`)).body.meals.filter((m) => m.eaten).length, 2);
+
+  token = (await call('POST', '/admin/login', { email: 'coach@example.com', password: 'coach-pass-123' })).body.token;
+  const day = [
+    { name: 'Breakfast', time: '08:00', slot: 'b', custom: { n: 'New oats', q: '1 bowl', k: 400, p: 30 } },
+    { name: 'Lunch', time: '13:00', slot: 'l', custom: { n: 'New thali', q: '1 plate', k: 700, p: 40 } },
+  ];
+  assert.equal((await call('PUT', `/admin/users/${me.id}/diet`, { days: Array(7).fill(day) })).status, 200);
+
+  token = member;
+  const fresh = (await call('GET', `/today?date=${date}&weekday=${weekday}`)).body;
+  assert.equal(fresh.meals.filter((m) => m.eaten).length, 0, 'old ticks do not carry over to the new diet');
+  await call('POST', '/logs/meals', { date, index: 1, eaten: true });
+  const after = (await call('GET', `/today?date=${date}&weekday=${weekday}`)).body;
+  const eaten = after.meals.filter((m) => m.eaten);
+  assert.deepEqual(eaten.map((m) => [m.food.n, m.kcal, m.protein]), [['New thali', 700, 40]], 'only the new meal counts');
+  await call('POST', '/logs/meals', { date, index: 1, eaten: false });
+  assert.equal((await call('GET', `/today?date=${date}&weekday=${weekday}`)).body.meals.filter((m) => m.eaten).length, 0);
+
+  token = (await call('POST', '/admin/login', { email: 'coach@example.com', password: 'coach-pass-123' })).body.token;
+  await call('DELETE', `/admin/users/${me.id}/diet`);
   token = member;
 });
