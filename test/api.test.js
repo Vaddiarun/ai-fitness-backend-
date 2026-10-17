@@ -5,7 +5,6 @@ import { createApp } from '../src/app.js';
 import { config } from '../src/config.js';
 
 let server, base, token, db;
-const outbox = []; // emails the app would have sent
 const call = async (method, path, body) => {
   const res = await fetch(base + path, {
     method,
@@ -23,7 +22,7 @@ const profile = {
 
 before(async () => {
   db = openDb(':memory:');
-  server = createApp(db, { sendMail: async (m) => { outbox.push(m); } }).listen(0);
+  server = createApp(db).listen(0);
   await new Promise((r) => server.once('listening', r));
   base = `http://127.0.0.1:${server.address().port}/api`;
 });
@@ -205,20 +204,6 @@ test('reminders quote last performance and cover rest days', async () => {
   assert.ok(r.filter((x) => x.kind === 'workout' && !x.id.startsWith('rest-')).every((x) => x.title.length > 0));
 });
 
-test('forgot password emails a code that resets the password once', async () => {
-  outbox.length = 0;
-  assert.equal((await call('POST', '/auth/forgot', { email: 'nobody@example.com' })).status, 200);
-  assert.equal(outbox.length, 0, 'unknown emails get the same reply but no mail');
-  await call('POST', '/auth/forgot', { email: 'priya@example.com' });
-  const code = outbox[0].text.match(/\b(\d{6})\b/)[1];
-  const wrong = code === '000000' ? '111111' : '000000';
-  assert.equal((await call('POST', '/auth/reset', { email: 'priya@example.com', code: wrong, password: 'newpass123' })).status, 400);
-  const ok = await call('POST', '/auth/reset', { email: 'priya@example.com', code, password: 'newpass123' });
-  assert.equal(ok.status, 200);
-  assert.ok(ok.body.token);
-  assert.equal((await call('POST', '/auth/reset', { email: 'priya@example.com', code, password: 'again12345' })).status, 400, 'codes are single-use');
-  assert.equal((await call('POST', '/auth/login', { email: 'priya@example.com', password: 'newpass123' })).status, 200);
-});
 
 test('admin portal: sign in, find a member by number, set their diet, then hand back to auto', async () => {
   Object.assign(config, { adminEmail: 'coach@example.com', adminPassword: 'coach-pass-123' });
@@ -270,4 +255,15 @@ test('admin portal: sign in, find a member by number, set their diet, then hand 
   const back = (await call('GET', '/plan')).body;
   assert.equal(back.coach, null);
   assert.notEqual(back.nutrition.protein, 125);
+});
+
+test('forgot password sets a new password straight away with the email', async () => {
+  const saved = token; token = null;
+  assert.equal((await call('POST', '/auth/reset', { email: 'nobody@example.com', password: 'newpass123' })).status, 404);
+  assert.equal((await call('POST', '/auth/reset', { email: 'priya@example.com', password: 'short' })).status, 400);
+  const ok = await call('POST', '/auth/reset', { email: 'priya@example.com', password: 'newpass123' });
+  assert.equal(ok.status, 200);
+  assert.ok(ok.body.token);
+  assert.equal((await call('POST', '/auth/login', { email: 'priya@example.com', password: 'newpass123' })).status, 200);
+  token = saved;
 });

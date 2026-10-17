@@ -2,7 +2,7 @@ import express from 'express';
 import cors from 'cors';
 import helmet from 'helmet';
 import bcrypt from 'bcryptjs';
-import { randomInt, timingSafeEqual, createHash } from 'node:crypto';
+import { timingSafeEqual, createHash } from 'node:crypto';
 import { readFileSync } from 'node:fs';
 import { config } from './config.js';
 import { parse } from './db.js';
@@ -12,13 +12,10 @@ import * as S from './schemas.js';
 import { generatePlan, expandPlan, swapMeal, mealWeek, workoutWeek, restDaysOf, toMinutes, PLAN_VERSION, MEAL_VERSION, TRAINING_DAYS } from './services/planEngine.js';
 import { weeklyReminders } from './services/schedule.js';
 import { streak, weekStart, volumeOf, advice, addDays, personalRecords, weekSummary } from './services/progress.js';
-import { sendMail as defaultSendMail } from './services/mailer.js';
 
-const RESET_TTL_MS = 15 * 60 * 1000;
 /** Constant-time string comparison (hash first so lengths always match). */
 const sameSecret = (a, b) => timingSafeEqual(createHash('sha256').update(a).digest(), createHash('sha256').update(b).digest());
 const COACH_LOCKED = 'Your coach set this meal plan. Ask them to change it.';
-const RESET_MAX_ATTEMPTS = 5;
 
 const LIBRARY = JSON.parse(readFileSync(new URL('./data/library.json', import.meta.url), 'utf8'));
 const LIBRARY_BY_ID = new Map(LIBRARY.map((x) => [x.id, x]));
@@ -27,7 +24,7 @@ const LIBRARY_FILTERS = {
   category: facet('category'), equipment: facet('equipment'), level: facet('level'), muscle: facet('primaryMuscles'),
 };
 
-export function createApp(db, { sendMail = defaultSendMail } = {}) {
+export function createApp(db) {
   const app = express();
   app.disable('x-powered-by');
   app.use(helmet());
@@ -40,11 +37,6 @@ export function createApp(db, { sendMail = defaultSendMail } = {}) {
     userById: db.prepare('SELECT id, email, name, settings, created_at FROM users WHERE id = ?'),
     insertUser: db.prepare('INSERT INTO users (email, name, password_hash) VALUES (?, ?, ?)'),
     setPassword: db.prepare('UPDATE users SET password_hash = ? WHERE id = ?'),
-    reset: db.prepare('SELECT * FROM password_resets WHERE user_id = ?'),
-    upsertReset: db.prepare(`INSERT INTO password_resets (user_id, code_hash, expires_at, attempts) VALUES (?, ?, ?, 0)
-      ON CONFLICT(user_id) DO UPDATE SET code_hash = excluded.code_hash, expires_at = excluded.expires_at, attempts = 0`),
-    resetAttempt: db.prepare('UPDATE password_resets SET attempts = attempts + 1 WHERE user_id = ?'),
-    deleteReset: db.prepare('DELETE FROM password_resets WHERE user_id = ?'),
     setSettings: db.prepare('UPDATE users SET settings = ? WHERE id = ?'),
     setName: db.prepare('UPDATE users SET name = ? WHERE id = ?'),
     deleteUser: db.prepare('DELETE FROM users WHERE id = ?'),
@@ -135,31 +127,11 @@ export function createApp(db, { sendMail = defaultSendMail } = {}) {
     res.json({ token: signToken(row), user: publicUser(row), profile: getProfile(row.id) });
   });
 
-  /* Password reset: a 6-digit code by email, valid for 15 minutes and 5 tries. */
-  app.post('/api/auth/forgot', validate(S.forgotSchema), async (req, res) => {
-    const user = q.userByEmail.get(req.body.email);
-    // Same answer whether or not the account exists, so the endpoint can't be used to find registered emails.
-    if (user) {
-      const code = String(randomInt(0, 1_000_000)).padStart(6, '0');
-      q.upsertReset.run(user.id, bcrypt.hashSync(code, 10), Date.now() + RESET_TTL_MS);
-      await sendMail({
-        to: user.email,
-        subject: `Your AI Fitness code: ${code}`,
-        text: `Hi ${user.name},\n\nYour code to reset your AI Fitness password is ${code}.\n`
-          + 'It expires in 15 minutes. If you didn\'t ask for this, you can ignore this email.',
-      });
-    }
-    res.json({ sent: true });
-  });
-
+  /* Forgot password: set a new one straight away with the account's email, then sign in. No codes. */
   app.post('/api/auth/reset', validate(S.resetSchema), (req, res) => {
-    const invalid = new HttpError(400, 'That code is wrong or has expired. Request a new one.');
     const user = q.userByEmail.get(req.body.email);
-    const reset = user && q.reset.get(user.id);
-    if (!reset || reset.expires_at < Date.now() || reset.attempts >= RESET_MAX_ATTEMPTS) throw invalid;
-    if (!bcrypt.compareSync(req.body.code, reset.code_hash)) { q.resetAttempt.run(user.id); throw invalid; }
+    if (!user) throw new HttpError(404, 'No account uses this email. Create an account instead.');
     q.setPassword.run(bcrypt.hashSync(req.body.password, 10), user.id);
-    q.deleteReset.run(user.id);
     res.json({ token: signToken(user), user: publicUser(user), profile: getProfile(user.id) });
   });
 

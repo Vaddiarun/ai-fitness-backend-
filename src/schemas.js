@@ -16,10 +16,8 @@ export const loginSchema = z.object({
   password: z.string().min(1),
 });
 
-export const forgotSchema = z.object({ email: z.string().trim().toLowerCase().email() });
 export const resetSchema = z.object({
   email: z.string().trim().toLowerCase().email(),
-  code: z.string().trim().regex(/^\d{6}$/, 'Enter the 6-digit code from the email'),
   password: z.string().min(8, 'Password must be at least 8 characters').max(128),
 });
 
