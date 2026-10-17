@@ -69,6 +69,9 @@ export function createApp(db) {
       FROM users u LEFT JOIN profiles p ON p.user_id = u.id LEFT JOIN plans pl ON pl.user_id = u.id
       ORDER BY u.id DESC`),
     adminUser: db.prepare('SELECT id, email, name, settings, created_at FROM users WHERE id = ?'),
+    adminCount: db.prepare('SELECT COUNT(*) AS n FROM admins'),
+    adminByEmail: db.prepare('SELECT * FROM admins WHERE email = ?'),
+    insertAdmin: db.prepare('INSERT INTO admins (email, password_hash) VALUES (?, ?)'),
     countWorkoutsSince: db.prepare('SELECT COUNT(*) AS n, COUNT(DISTINCT user_id) AS users FROM workout_logs WHERE date >= ?'),
   };
   const rowToWorkout = (r) => r && ({
@@ -329,12 +332,27 @@ export function createApp(db) {
 
 
   /* ---------- admin portal ---------- */
+  // Admins come from ADMIN_EMAIL/ADMIN_PASSWORD on the server, or from a one-time setup in the portal (stored hashed).
+  const envAdmin = () => !!(config.adminEmail && config.adminPassword);
+  const needsSetup = () => !envAdmin() && !q.adminCount.get().n;
+
+  app.get('/api/admin/setup', (_req, res) => res.json({ needsSetup: needsSetup() }));
+
+  /** First-run only: creates the admin account when none exists yet. Closed for good once there is one. */
+  app.post('/api/admin/setup', validate(S.adminSetupSchema), (req, res) => {
+    if (!needsSetup()) throw new HttpError(409, 'An admin account already exists. Sign in instead.');
+    q.insertAdmin.run(req.body.email, bcrypt.hashSync(req.body.password, 10));
+    res.status(201).json({ token: signAdminToken(req.body.email), email: req.body.email });
+  });
+
   app.post('/api/admin/login', validate(S.adminLoginSchema), (req, res) => {
-    const missing = [!config.adminEmail && 'ADMIN_EMAIL', !config.adminPassword && 'ADMIN_PASSWORD'].filter(Boolean);
-    if (missing.length) throw new HttpError(503, `The admin portal is not set up: ${missing.join(' and ')} ${missing.length > 1 ? 'are' : 'is'} missing on the server.`);
-    const ok = req.body.email === config.adminEmail && sameSecret(req.body.password, config.adminPassword);
-    if (!ok) throw new HttpError(401, 'Email or password is incorrect.');
-    res.json({ token: signAdminToken(config.adminEmail), email: config.adminEmail });
+    if (needsSetup()) throw new HttpError(409, 'No admin account yet. Create one first.');
+    const { email, password } = req.body;
+    const viaEnv = envAdmin() && email === config.adminEmail && sameSecret(password, config.adminPassword);
+    const row = q.adminByEmail.get(email);
+    const viaDb = !!row && bcrypt.compareSync(password, row.password_hash);
+    if (!viaEnv && !viaDb) throw new HttpError(401, 'Email or password is incorrect.');
+    res.json({ token: signAdminToken(email), email });
   });
 
   const admin = express.Router();

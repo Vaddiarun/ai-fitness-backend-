@@ -267,3 +267,24 @@ test('forgot password sets a new password straight away with the email', async (
   assert.equal((await call('POST', '/auth/login', { email: 'priya@example.com', password: 'newpass123' })).status, 200);
   token = saved;
 });
+
+test('first-run admin setup works once when the server has no admin settings', async () => {
+  const saved = { adminEmail: config.adminEmail, adminPassword: config.adminPassword }, member = token;
+  Object.assign(config, { adminEmail: '', adminPassword: '' });
+  token = null;
+  assert.equal((await call('GET', '/admin/setup')).body.needsSetup, true);
+  assert.equal((await call('POST', '/admin/login', { email: 'owner@example.com', password: 'owner-pass-1' })).status, 409);
+  assert.equal((await call('POST', '/admin/setup', { email: 'owner@example.com', password: 'short' })).status, 400);
+  const created = await call('POST', '/admin/setup', { email: 'Owner@Example.com', password: 'owner-pass-1' });
+  assert.equal(created.status, 201);
+  assert.ok(created.body.token);
+  assert.equal((await call('GET', '/admin/setup')).body.needsSetup, false);
+  assert.equal((await call('POST', '/admin/setup', { email: 'intruder@example.com', password: 'intruder-123' })).status, 409, 'setup closes after the first admin');
+  assert.equal((await call('POST', '/admin/login', { email: 'owner@example.com', password: 'wrong-pass' })).status, 401);
+  const login = await call('POST', '/admin/login', { email: 'owner@example.com', password: 'owner-pass-1' });
+  assert.equal(login.status, 200);
+  token = login.body.token;
+  assert.equal((await call('GET', '/admin/stats')).status, 200);
+  Object.assign(config, saved);
+  token = member;
+});

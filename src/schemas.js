@@ -60,6 +60,10 @@ export const swapSchema = z.object({ day: z.number().int().min(0).max(6), index:
 
 /* ---------- admin portal ---------- */
 export const adminLoginSchema = z.object({ email: z.string().trim().toLowerCase().email(), password: z.string().min(1) });
+export const adminSetupSchema = z.object({
+  email: z.string().trim().toLowerCase().email(),
+  password: z.string().min(8, 'Use at least 8 characters').max(128),
+});
 
 /** A dish the coach writes themselves when it isn't in the catalog. */
 const customFood = z.object({

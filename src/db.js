@@ -48,6 +48,11 @@ CREATE TABLE IF NOT EXISTS meal_logs (
   slot_index INTEGER NOT NULL,
   PRIMARY KEY (user_id, date, slot_index)
 );
+CREATE TABLE IF NOT EXISTS admins (
+  email         TEXT PRIMARY KEY,
+  password_hash TEXT NOT NULL,
+  created_at    TEXT NOT NULL DEFAULT (datetime('now'))
+);
 CREATE TABLE IF NOT EXISTS water_logs (
   user_id INTEGER NOT NULL REFERENCES users(id) ON DELETE CASCADE,
   date    TEXT NOT NULL,
