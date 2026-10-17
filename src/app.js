@@ -71,9 +71,10 @@ export function createApp(db) {
     plan: db.prepare('SELECT data FROM plans WHERE user_id = ?'),
     upsertPlan: db.prepare(`INSERT INTO plans (user_id, data) VALUES (?, ?)
       ON CONFLICT(user_id) DO UPDATE SET data = excluded.data, created_at = datetime('now')`),
-    mealsOn: db.prepare('SELECT slot_index FROM meal_logs WHERE user_id = ? AND date = ? AND rev = ?'),
-    eat: db.prepare(`INSERT INTO meal_logs (user_id, date, slot_index, rev) VALUES (?, ?, ?, ?)
-      ON CONFLICT(user_id, date, slot_index) DO UPDATE SET rev = excluded.rev`),
+    mealsOn: db.prepare('SELECT slot_index, status, note, kcal, protein FROM meal_logs WHERE user_id = ? AND date = ? AND rev = ?'),
+    eat: db.prepare(`INSERT INTO meal_logs (user_id, date, slot_index, rev, status, note, kcal, protein) VALUES (?, ?, ?, ?, ?, ?, ?, ?)
+      ON CONFLICT(user_id, date, slot_index) DO UPDATE SET rev = excluded.rev, status = excluded.status,
+        note = excluded.note, kcal = excluded.kcal, protein = excluded.protein`),
     uneat: db.prepare('DELETE FROM meal_logs WHERE user_id = ? AND date = ? AND slot_index = ?'),
     water: db.prepare('SELECT glasses FROM water_logs WHERE user_id = ? AND date = ?'),
     setWater: db.prepare(`INSERT INTO water_logs (user_id, date, glasses) VALUES (?, ?, ?)
@@ -88,7 +89,7 @@ export function createApp(db) {
     workoutsOn: db.prepare("SELECT * FROM workout_logs WHERE user_id = ? AND date = ? AND kind = 'plan' ORDER BY id DESC"),
     planWorkoutDates: db.prepare("SELECT DISTINCT date FROM workout_logs WHERE user_id = ? AND kind = 'plan'"),
     planWorkoutsSince: db.prepare("SELECT COUNT(*) AS n FROM workout_logs WHERE user_id = ? AND kind = 'plan' AND date >= ? AND date <= ?"),
-    mealLogsSince: db.prepare('SELECT date, slot_index FROM meal_logs WHERE user_id = ? AND date >= ? ORDER BY date'),
+    mealLogsSince: db.prepare('SELECT date, slot_index, status, note, kcal, protein FROM meal_logs WHERE user_id = ? AND date >= ? ORDER BY date'),
     waterSince: db.prepare('SELECT date, glasses FROM water_logs WHERE user_id = ? AND date >= ? ORDER BY date'),
     adminUsers: db.prepare(`SELECT u.id, u.email, u.name, u.created_at, p.data AS profile, pl.data AS plan,
         (SELECT MAX(date) FROM workout_logs w WHERE w.user_id = u.id) AS last_workout
@@ -280,25 +281,39 @@ export function createApp(db) {
     const { date, weekday } = req.validQuery;
     const { plan } = (await needPlan(req.userId));
     const full = expandPlan(plan);
-    const eaten = new Set((await q.mealsOn.all(req.userId, date, plan.mealsRev ?? '')).map((r) => r.slot_index));
+    const logs = new Map((await q.mealsOn.all(req.userId, date, plan.mealsRev ?? '')).map((r) => [r.slot_index, r]));
     res.json({
       date, weekday,
       // Today's ring targets: with a coach diet these are today's meal totals, so the rings match the plan.
       nutrition: { ...full.nutrition, ...full.dayNutrition[weekday] },
       workout: full.workouts[weekday],
       completed: rowToWorkout((await q.workoutsOn.get(req.userId, date))) || null,
-      meals: full.meals[weekday].map((m, i) => ({ ...m, index: i, eaten: eaten.has(i) })),
+      meals: full.meals[weekday].map((m, i) => {
+        const log = logs.get(i);
+        const status = log?.status ?? 'none';
+        return {
+          ...m, index: i, status,
+          eaten: status === 'eaten', // older app builds read this
+          cheat: status === 'cheated' ? { note: log.note ?? '', kcal: log.kcal ?? 0, protein: log.protein ?? 0 } : null,
+        };
+      }),
       water: (await q.water.get(req.userId, date))?.glasses ?? 0,
     });
   });
 
+  /** Mark one of today's meals as eaten, skipped or cheated — or clear it with status "none". */
   api.post('/logs/meals', validate(S.mealLogSchema), async (req, res) => {
-    const { date, index, eaten } = req.body;
-    if (eaten) {
+    const { date, index, note, kcal, protein } = req.body;
+    const status = req.body.status ?? (req.body.eaten ? 'eaten' : 'none');
+    if (status === 'none') {
+      await q.uneat.run(req.userId, date, index);
+    } else {
       const { plan } = (await needPlan(req.userId));
-      await q.eat.run(req.userId, date, index, plan.mealsRev ?? '');
-    } else await q.uneat.run(req.userId, date, index);
-    res.json({ date, index, eaten });
+      const cheat = status === 'cheated';
+      await q.eat.run(req.userId, date, index, plan.mealsRev ?? '', status,
+        cheat ? note ?? null : null, cheat ? kcal ?? 0 : null, cheat ? protein ?? 0 : null);
+    }
+    res.json({ date, index, status, eaten: status === 'eaten' });
   });
 
   api.post('/logs/water', validate(S.waterLogSchema), async (req, res) => {

@@ -96,7 +96,19 @@ export const adminDietSchema = z.object({
 export const cuisineSchema = z.object({ cuisine: z.enum(cuisineIds) });
 export const dateQuery = z.object({ date: isoDate, weekday: z.coerce.number().int().min(0).max(6) });
 
-export const mealLogSchema = z.object({ date: isoDate, index: z.number().int().min(0).max(9), eaten: z.boolean() });
+/**
+ * How a planned meal went. `status` is the new form; `eaten: true/false` is still accepted from older app builds.
+ * A cheat meal can carry what was eaten and a calorie/protein estimate.
+ */
+export const mealLogSchema = z.object({
+  date: isoDate,
+  index: z.number().int().min(0).max(9),
+  status: z.enum(['eaten', 'skipped', 'cheated', 'none']).optional(),
+  eaten: z.boolean().optional(),
+  note: z.string().trim().max(200).optional(),
+  kcal: z.coerce.number().int().min(0).max(5000).optional(),
+  protein: z.coerce.number().int().min(0).max(300).optional(),
+}).refine((b) => b.status || b.eaten !== undefined, 'Say how the meal went');
 export const waterLogSchema = z.object({ date: isoDate, delta: z.number().int().min(-5).max(5) });
 export const weightLogSchema = z.object({ date: isoDate, kg: z.number().min(30).max(250) });
 

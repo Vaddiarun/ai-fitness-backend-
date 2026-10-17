@@ -74,7 +74,14 @@ export async function openDb({ url, authToken }) {
   const client = createClient({ url, authToken });
   await client.executeMultiple(SCHEMA);
   // Columns added after the first release; ALTER fails harmlessly when the column already exists.
-  for (const sql of ["ALTER TABLE meal_logs ADD COLUMN rev TEXT NOT NULL DEFAULT ''"]) {
+  for (const sql of [
+    "ALTER TABLE meal_logs ADD COLUMN rev TEXT NOT NULL DEFAULT ''",
+    // How the meal went: eaten as planned, skipped, or cheated (ate something else, with an estimate).
+    "ALTER TABLE meal_logs ADD COLUMN status TEXT NOT NULL DEFAULT 'eaten'",
+    'ALTER TABLE meal_logs ADD COLUMN note TEXT',
+    'ALTER TABLE meal_logs ADD COLUMN kcal INTEGER',
+    'ALTER TABLE meal_logs ADD COLUMN protein INTEGER',
+  ]) {
     try { await client.execute(sql); } catch { /* already there */ }
   }
   // Plain objects keyed by column name (libsql rows are array-like).

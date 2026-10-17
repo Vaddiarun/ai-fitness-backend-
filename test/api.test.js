@@ -354,3 +354,26 @@ test('with a coach diet the rings match the meals: eating everything fills them 
   const auto = (await call('GET', `/today?date=${date}&weekday=${weekday}`)).body;
   assert.equal(auto.nutrition.kcal, (await call('GET', '/plan')).body.nutrition.kcal, 'automatic plans keep the calculated targets');
 });
+
+test('meals can be marked eaten, skipped or cheated, and cleared again', async () => {
+  const date = '2026-10-21', weekday = 2;
+  const before = (await call('GET', `/today?date=${date}&weekday=${weekday}`)).body;
+  assert.ok(before.meals.every((m) => m.status === 'none'));
+  assert.equal((await call('POST', '/logs/meals', { date, index: 0, status: 'eaten' })).status, 200);
+  assert.equal((await call('POST', '/logs/meals', { date, index: 1, status: 'skipped' })).status, 200);
+  assert.equal((await call('POST', '/logs/meals', { date, index: 2, status: 'cheated', note: 'Pizza with friends', kcal: 900, protein: 30 })).status, 200);
+  assert.equal((await call('POST', '/logs/meals', { date, index: 3, status: 'bogus' })).status, 400);
+  const t = (await call('GET', `/today?date=${date}&weekday=${weekday}`)).body;
+  assert.deepEqual(t.meals.slice(0, 3).map((m) => m.status), ['eaten', 'skipped', 'cheated']);
+  assert.equal(t.meals[0].eaten, true, 'older apps still see eaten');
+  assert.equal(t.meals[1].eaten, false);
+  assert.deepEqual(t.meals[2].cheat, { note: 'Pizza with friends', kcal: 900, protein: 30 });
+  // changing a cheat back to eaten drops the cheat details; "none" clears it
+  await call('POST', '/logs/meals', { date, index: 2, status: 'eaten' });
+  await call('POST', '/logs/meals', { date, index: 1, status: 'none' });
+  const after = (await call('GET', `/today?date=${date}&weekday=${weekday}`)).body;
+  assert.deepEqual(after.meals.slice(0, 3).map((m) => [m.status, m.cheat]), [['eaten', null], ['none', null], ['eaten', null]]);
+  // the old { eaten } form still works
+  await call('POST', '/logs/meals', { date, index: 0, eaten: false });
+  assert.equal((await call('GET', `/today?date=${date}&weekday=${weekday}`)).body.meals[0].status, 'none');
+});
