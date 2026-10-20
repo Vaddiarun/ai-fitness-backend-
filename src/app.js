@@ -11,7 +11,8 @@ import { requireAuth, requireAdmin, validate, signToken, signAdminToken, HttpErr
 import * as S from './schemas.js';
 import { generatePlan, expandPlan, swapMeal, mealWeek, workoutWeek, restDaysOf, toMinutes, PLAN_VERSION, MEAL_VERSION, TRAINING_DAYS } from './services/planEngine.js';
 import { weeklyReminders } from './services/schedule.js';
-import { streak, weekStart, volumeOf, advice, addDays, personalRecords, weekSummary } from './services/progress.js';
+import { streak, weekStart, weekdayOf, volumeOf, advice, addDays, personalRecords, weekSummary } from './services/progress.js';
+import { buildInsights, RANGES } from './services/insights.js';
 
 /** Constant-time string comparison (hash first so lengths always match). */
 const sameSecret = (a, b) => timingSafeEqual(createHash('sha256').update(a).digest(), createHash('sha256').update(b).digest());
@@ -89,6 +90,7 @@ export function createApp(db) {
     workoutsOn: db.prepare("SELECT * FROM workout_logs WHERE user_id = ? AND date = ? AND kind = 'plan' ORDER BY id DESC"),
     planWorkoutDates: db.prepare("SELECT DISTINCT date FROM workout_logs WHERE user_id = ? AND kind = 'plan'"),
     planWorkoutsSince: db.prepare("SELECT COUNT(*) AS n FROM workout_logs WHERE user_id = ? AND kind = 'plan' AND date >= ? AND date <= ?"),
+    workoutsSince: db.prepare('SELECT * FROM workout_logs WHERE user_id = ? AND date >= ? ORDER BY date, id'),
     mealLogsSince: db.prepare('SELECT date, slot_index, status, note, kcal, protein FROM meal_logs WHERE user_id = ? AND date >= ? ORDER BY date'),
     waterSince: db.prepare('SELECT date, glasses FROM water_logs WHERE user_id = ? AND date >= ? ORDER BY date'),
     adminUsers: db.prepare(`SELECT u.id, u.email, u.name, u.created_at, p.data AS profile, pl.data AS plan,
@@ -310,8 +312,9 @@ export function createApp(db) {
     } else {
       const { plan } = (await needPlan(req.userId));
       const cheat = status === 'cheated';
-      await q.eat.run(req.userId, date, index, plan.mealsRev ?? '', status,
-        cheat ? note ?? null : null, cheat ? kcal ?? 0 : null, cheat ? protein ?? 0 : null);
+      const meal = status === 'eaten' ? expandPlan(plan).meals[weekdayOf(date)]?.[index] : null;
+      await q.eat.run(req.userId, date, index, plan.mealsRev ?? '', status, cheat ? note ?? null : null,
+        cheat ? kcal ?? 0 : meal ? meal.kcal : null, cheat ? protein ?? 0 : meal ? meal.protein : null);
     }
     res.json({ date, index, status, eaten: status === 'eaten' });
   });
@@ -363,6 +366,24 @@ export function createApp(db) {
     }
     const rx = plan.workouts.flatMap((d) => d.exercises || []).find((e) => e.id === id) || {};
     res.json({ last, date: lastDate, advice: advice(rx, last, profile.units) });
+  });
+
+  /** Data for the Progress charts: strength per exercise, monthly load, daily nutrition, weekly adherence and more. */
+  const insightsFor = async (userId, date, range) => {
+    const { plan } = (await needPlan(userId));
+    const user = (await q.userById.get(userId));
+    const days = RANGES[range];
+    const since = addDays(date, -Math.max(days, 370));
+    return buildInsights({
+      today: date, days, full: expandPlan(plan), startedOn: String(user.created_at).slice(0, 10),
+      workouts: (await q.workoutsSince.all(userId, since)).map(rowToWorkout),
+      weights: (await q.weights.all(userId)),
+      meals: (await q.mealLogsSince.all(userId, addDays(date, -days))),
+      water: (await q.waterSince.all(userId, addDays(date, -days))),
+    });
+  };
+  api.get('/insights', validate(S.insightsQuery, 'query'), async (req, res) => {
+    res.json(await insightsFor(req.userId, req.validQuery.date, req.validQuery.range));
   });
 
   api.get('/progress', validate(S.dateQuery, 'query'), async (req, res) => {
@@ -461,6 +482,11 @@ export function createApp(db) {
         workouts: (await q.workouts.all(user.id, 20)).map(rowToWorkout),
       },
     });
+  });
+
+  admin.get('/users/:id/insights', validate(S.insightsQuery, 'query'), async (req, res) => {
+    const user = (await adminTarget(req.params.id));
+    res.json(await insightsFor(user.id, req.validQuery.date, req.validQuery.range));
   });
 
   admin.get('/foods', async (_req, res) => res.json({ foods: FOODS, cuisines: CUISINES }));

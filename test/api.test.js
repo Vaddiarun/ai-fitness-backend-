@@ -377,3 +377,59 @@ test('meals can be marked eaten, skipped or cheated, and cleared again', async (
   await call('POST', '/logs/meals', { date, index: 0, eaten: false });
   assert.equal((await call('GET', `/today?date=${date}&weekday=${weekday}`)).body.meals[0].status, 'none');
 });
+
+test('every meal says exactly how much to eat, scaled to its portion', async () => {
+  const { servingText } = await import('../src/services/serving.js');
+  assert.equal(servingText('3 idlis + 1 bowl sambar + chutney', 1.75), '5 idlis + 2 bowls sambar + chutney');
+  assert.equal(servingText('150 g chicken + 2 rotis', 1.25), '190 g chicken + 3 rotis');
+  assert.equal(servingText('1 paratha + ½ bowl curd', 2), '2 parathas + 1 bowl curd');
+  assert.equal(servingText('2 dosas', 1), '2 dosas');
+  const plan = (await call('GET', '/plan')).body;
+  for (const m of plan.meals.flat()) assert.ok(m.serving && /\d|½|¼|¾/.test(m.serving), `${m.food.n} has a quantity: "${m.serving}"`);
+  // a coach's own dish needs a quantity too
+  Object.assign(config, { adminEmail: 'coach@example.com', adminPassword: 'coach-pass-123' });
+  const member = token, me = (await call('GET', '/me')).body.user;
+  token = (await call('POST', '/admin/login', { email: 'coach@example.com', password: 'coach-pass-123' })).body.token;
+  const noQty = await call('PUT', `/admin/users/${me.id}/diet`, { days: Array(7).fill([{ name: 'Lunch', time: '13:00', slot: 'l', custom: { n: 'Thali', k: 600, p: 30 } }]) });
+  assert.equal(noQty.status, 400);
+  token = member;
+});
+
+test('insights feed the Progress charts: strength, monthly load, nutrition, adherence, workouts, water', async () => {
+  const d = new Date();
+  const today = `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`;
+  const weekday = d.getDay();
+  const plan = (await call('GET', '/plan')).body;
+  const ex = plan.workouts.flatMap((w) => w.exercises ?? []).find((e) => !e.exercise.timed);
+  await call('POST', '/logs/workouts', { date: today, kind: 'plan', name: 'Chart day', mins: 40,
+    exercises: [{ id: ex.id, sets: [{ reps: 10, weight: 20, done: true }, { reps: 8, weight: 22.5, done: true }] }] });
+  const t = (await call('GET', `/today?date=${today}&weekday=${weekday}`)).body;
+  await call('POST', '/logs/meals', { date: today, index: 0, status: 'eaten' });
+  await call('POST', '/logs/meals', { date: today, index: 1, status: 'cheated', kcal: 700, protein: 20 });
+  await call('POST', '/logs/meals', { date: today, index: 2, status: 'skipped' });
+  await call('POST', '/logs/water', { date: today, delta: 3 });
+
+  assert.equal((await call('GET', `/insights?date=${today}&range=7`)).status, 400, 'only 30/90/365');
+  const r = await call('GET', `/insights?date=${today}&range=30`);
+  assert.equal(r.status, 200);
+  const i = r.body;
+  const s = i.strength.find((x) => x.id === ex.id);
+  assert.ok(s && s.metric === 'weight' && s.points.at(-1).weight === 22.5, 'best set per session');
+  assert.equal(i.load.length, 12);
+  assert.ok(i.load.at(-1).volume >= 10 * 20 + 8 * 22.5, 'this month includes the session volume');
+  const n = i.nutrition.find((x) => x.date === today);
+  assert.equal(n.kcal, t.meals[0].kcal + 700, 'eaten meal + cheat estimate, skip counts nothing');
+  assert.equal(n.protein, t.meals[0].protein + 20);
+  assert.equal(n.kcalTarget, t.nutrition.kcal);
+  const week = i.adherence.at(-1);
+  assert.ok(week.eaten >= 1 && week.cheated >= 1 && week.skipped >= 1);
+  assert.ok(i.training.at(-1).done >= 1);
+  assert.ok(i.water.find((x) => x.date === today).glasses >= 3);
+
+  // admins see the same data for a member
+  Object.assign(config, { adminEmail: 'coach@example.com', adminPassword: 'coach-pass-123' });
+  const member = token, me = (await call('GET', '/me')).body.user;
+  token = (await call('POST', '/admin/login', { email: 'coach@example.com', password: 'coach-pass-123' })).body.token;
+  assert.equal((await call('GET', `/admin/users/${me.id}/insights?date=${today}&range=90`)).body.range.days, 90);
+  token = member;
+});

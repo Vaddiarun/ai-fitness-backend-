@@ -1,5 +1,6 @@
 import { EXERCISES } from '../data/index.js';
 import { foodOf, toMinutes } from './planEngine.js';
+import { servingText } from './serving.js';
 
 const KIND = { b: 'breakfast', s: 'snack', l: 'lunch', d: 'dinner', x: 'protein' };
 
@@ -37,7 +38,7 @@ export function weeklyReminders(profile, plan, settings, lastFor = () => null) {
     if (settings.meals) plan.meals[weekday].forEach((m, i) => {
       const f = foodOf(m);
       out.push({ id: `meal-${weekday}-${i}`, weekday, minute: m.minute, kind: KIND[m.slot],
-        title: `${m.name} time`, body: `${f.n} · ${Math.round(f.k * m.portion)} kcal` });
+        title: `${m.name} time`, body: `${servingText(f.q, m.portion) || f.n} · ${f.n} · ${Math.round(f.k * m.portion)} kcal` });
     });
     const day = plan.workouts[weekday];
     if (settings.workout && day.type === 'workout') {

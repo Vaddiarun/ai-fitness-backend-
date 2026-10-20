@@ -1,4 +1,5 @@
 import { EXERCISES, POOLS, TEMPLATES, SPLITS, FOODS, FOOD_BY_ID } from '../data/index.js';
+import { servingText } from './serving.js';
 
 const ACTIVITY = { sedentary: 1.2, light: 1.375, moderate: 1.55, very: 1.725 };
 const GOAL_ADJ = { lose: -0.2, muscle: 0.1, strength: 0.05, fit: 0, maintain: 0 };
@@ -232,7 +233,8 @@ export function expandPlan(plan) {
     }),
     meals: plan.meals.map((day) => day.map((m) => {
       const f = foodOf(m);
-      return { ...m, food: f, kcal: Math.round(f.k * m.portion), protein: Math.round(f.p * m.portion) };
+      // `serving` is the real amount for this portion, e.g. "5 idlis + 2 bowls sambar" rather than "3 idlis… × 1.75".
+      return { ...m, food: f, serving: servingText(f.q, m.portion), kcal: Math.round(f.k * m.portion), protein: Math.round(f.p * m.portion) };
     })),
     dayNutrition: dayNutrition(plan),
   };

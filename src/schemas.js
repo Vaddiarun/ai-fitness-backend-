@@ -68,7 +68,7 @@ export const adminSetupSchema = z.object({
 /** A dish the coach writes themselves when it isn't in the catalog. */
 const customFood = z.object({
   n: z.string().trim().min(1, 'Name the dish').max(120),
-  q: z.string().trim().max(80).default(''),
+  q: z.string().trim().min(1, 'Add how much (e.g. 3 idlis + 1 bowl sambar)').max(80),
   k: z.coerce.number().min(0).max(3000),
   p: z.coerce.number().min(0).max(300),
 });
@@ -95,6 +95,8 @@ export const adminDietSchema = z.object({
 });
 export const cuisineSchema = z.object({ cuisine: z.enum(cuisineIds) });
 export const dateQuery = z.object({ date: isoDate, weekday: z.coerce.number().int().min(0).max(6) });
+/** Charts: the member's local date and how far back to look. */
+export const insightsQuery = z.object({ date: isoDate, range: z.enum(['30', '90', '365']).default('30') });
 
 /**
  * How a planned meal went. `status` is the new form; `eaten: true/false` is still accepted from older app builds.
